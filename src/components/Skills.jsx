@@ -1,106 +1,142 @@
 import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  Layers, 
-  Code, 
-  Database, 
-  Cpu, 
-  Cloud, 
-  Check, 
-  ExternalLink,
-  ChevronRight
-} from 'lucide-react';
+import { useTheme, Section, useScrollReveal } from '../App';
 import { skillsData } from '../data/portfolioData';
+import { Cpu, Globe, Code, Cloud } from 'lucide-react';
 
-export default function Skills({ darkMode }) {
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+const categoryIcons = [Cpu, Globe, Code, Cloud];
+
+export default function Skills() {
+  const { darkMode } = useTheme();
+  const [activeTab, setActiveTab] = useState(0);
+  const [ref, isVisible] = useScrollReveal({ threshold: 0.1 });
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
-      {/* Background ambient glow */}
-      <div className="absolute top-1/2 -left-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+    <Section id="skills" className="py-24 md:py-32 px-6">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 mb-3">
-            <Sparkles size={12} />
-            <span>TECHNICAL PROFICIENCY</span>
-          </div>
-          <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${
-            darkMode ? 'text-white' : 'text-slate-900'
-          }`}>
-            Skills & <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Tech Stack</span>
-          </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full mt-3" />
-          <p className={`mt-4 text-base max-w-2xl ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            A comprehensive overview of my technical capabilities spanning Artificial Intelligence, Machine Learning models, and modern full-stack engineering.
+        <div className="text-center mb-16">
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 text-violet-500">
+            Technical Skills
           </p>
+          <h2 className={`text-3xl md:text-5xl font-black mb-4 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+            What I <span className="gradient-text">Build With</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-cyan-500 mx-auto rounded-full mb-6" />
+          <div className="max-w-2xl mx-auto space-y-2">
+            {skillsData.overview.map((line, i) => (
+              <p key={i} className={`text-sm md:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                {line}
+              </p>
+            ))}
+          </div>
         </div>
 
-        {/* Top 6 Proficient Tech Stacks (from developerFolio) */}
-        <div className="mb-20">
-          <div className="flex items-center justify-between mb-8">
-            <h3 className={`text-xl font-bold flex items-center gap-2.5 ${
-              darkMode ? 'text-white' : 'text-slate-900'
-            }`}>
-              <Layers size={20} className="text-cyan-400" />
-              <span>Core Technology Proficiency</span>
-            </h3>
-            <span className={`text-xs font-mono ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-              Benchmark & Specialization
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skillsData.stackHighlights.map((item, idx) => (
-              <div
-                key={idx}
-                className={`p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
-                  darkMode 
-                    ? 'bg-slate-900/60 border-slate-800 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-950/20' 
-                    : 'bg-white border-slate-200 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-50'
+        {/* Category Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {skillsData.categories.map((cat, i) => {
+            const Icon = categoryIcons[i];
+            return (
+              <button
+                key={i}
+                onClick={() => setActiveTab(i)}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 magnetic-btn ${
+                  activeTab === i
+                    ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
+                    : darkMode
+                      ? 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                      : 'bg-black/5 text-slate-600 hover:bg-black/10 hover:text-slate-900'
                 }`}
               >
-                {/* Header */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className={`font-bold text-base ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                    {item.stack}
-                  </span>
-                  <span 
-                    className="font-mono font-bold text-sm px-2.5 py-0.5 rounded-full"
-                    style={{ 
-                      color: item.color, 
-                      backgroundColor: `${item.color}15`,
-                      border: `1px solid ${item.color}30`
-                    }}
-                  >
-                    {item.percentage}
+                <Icon size={16} />
+                {cat.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Category Skills */}
+        <div ref={ref} className={`rounded-2xl p-8 mb-16 ${darkMode ? 'glass' : 'glass-light'}`}>
+          <p className={`text-sm mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+            {skillsData.categories[activeTab].description}
+          </p>
+          
+          <div className="space-y-6">
+            {skillsData.categories[activeTab].skills.map((skill, i) => (
+              <div key={skill.name + activeTab} className="group">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-3">
+                    <span className={`text-sm font-semibold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                      {skill.name}
+                    </span>
+                    <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
+                      darkMode ? 'bg-white/5 text-slate-400' : 'bg-black/5 text-slate-600'
+                    }`}>
+                      {skill.tag}
+                    </span>
+                  </div>
+                  <span className={`text-sm font-bold ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {skill.level}%
                   </span>
                 </div>
-
-                {/* Progress Bar */}
-                <div className="w-full h-2 rounded-full bg-slate-800/80 overflow-hidden mb-4">
+                
+                <div className={`h-2.5 rounded-full overflow-hidden ${
+                  darkMode ? 'bg-white/5' : 'bg-black/5'
+                }`}>
                   <div
                     className="h-full rounded-full transition-all duration-1000 ease-out"
-                    style={{ 
-                      width: item.percentage, 
-                      backgroundColor: item.color,
-                      boxShadow: `0 0 12px ${item.color}80` 
+                    style={{
+                      width: isVisible ? `${skill.level}%` : '0%',
+                      background: `linear-gradient(90deg, ${skill.color}, ${skill.color}88)`,
+                      transitionDelay: `${i * 150}ms`,
                     }}
                   />
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-                {/* Sub-topics */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {item.topics.map((topic, tIdx) => (
+        {/* Stack Highlights */}
+        <div>
+          <h3 className={`text-xl font-bold mb-8 text-center ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+            Core Stack Proficiency
+          </h3>
+          <div className="grid md:grid-cols-2 gap-5">
+            {skillsData.stackHighlights.map((stack, i) => (
+              <div
+                key={i}
+                className={`group p-6 rounded-xl card-hover ${darkMode ? 'glass' : 'glass-light'}`}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-sm font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                    {stack.stack}
+                  </span>
+                  <span className="text-sm font-bold" style={{ color: stack.color }}>
+                    {stack.percentage}
+                  </span>
+                </div>
+                
+                <div className={`h-2 rounded-full overflow-hidden mb-4 ${
+                  darkMode ? 'bg-white/5' : 'bg-black/5'
+                }`}>
+                  <div
+                    className="h-full rounded-full transition-all duration-1000 ease-out"
+                    style={{
+                      width: isVisible ? stack.percentage : '0%',
+                      background: stack.color,
+                      transitionDelay: `${i * 100}ms`,
+                    }}
+                  />
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  {stack.topics.map((topic, j) => (
                     <span
-                      key={tIdx}
-                      className={`text-[11px] font-mono px-2 py-0.5 rounded-md border ${
+                      key={j}
+                      className={`text-xs px-2.5 py-1 rounded-full ${
                         darkMode 
-                          ? 'bg-slate-950/70 border-slate-800 text-slate-300' 
-                          : 'bg-slate-100 border-slate-200 text-slate-700'
+                          ? 'bg-white/5 text-slate-400' 
+                          : 'bg-black/5 text-slate-600'
                       }`}
                     >
                       {topic}
@@ -111,111 +147,7 @@ export default function Skills({ darkMode }) {
             ))}
           </div>
         </div>
-
-        {/* Categorized Skills Deep Dive */}
-        <div className={`p-8 rounded-3xl border ${
-          darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-50/80 border-slate-200'
-        }`}>
-          {/* Category Tabs */}
-          <div className="flex flex-wrap gap-2 mb-8 border-b pb-4 border-slate-800/60">
-            {skillsData.categories.map((cat, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedCategoryIndex(idx)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                  selectedCategoryIndex === idx
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20'
-                    : darkMode
-                      ? 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800'
-                      : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Active Category Description */}
-          <div className="mb-6 flex items-center justify-between">
-            <p className={`text-sm ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-              {skillsData.categories[selectedCategoryIndex].description}
-            </p>
-            <span className="text-xs font-mono text-cyan-400">
-              {skillsData.categories[selectedCategoryIndex].skills.length} competencies
-            </span>
-          </div>
-
-          {/* Skills Grid for active category */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {skillsData.categories[selectedCategoryIndex].skills.map((skill, sIdx) => (
-              <div
-                key={sIdx}
-                className={`p-4 rounded-xl border flex items-center justify-between transition-colors ${
-                  darkMode 
-                    ? 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700' 
-                    : 'bg-white border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div 
-                    className="w-3 h-3 rounded-full shrink-0" 
-                    style={{ backgroundColor: skill.color }} 
-                  />
-                  <div>
-                    <span className={`text-sm font-semibold block ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
-                      {skill.name}
-                    </span>
-                    <span className={`text-[11px] font-mono ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                      {skill.tag}
-                    </span>
-                  </div>
-                </div>
-
-                <span className="font-mono text-xs font-bold text-cyan-400">
-                  {skill.level}%
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Software skills badge cloud */}
-        <div className="mt-14 text-center">
-          <span className={`text-xs font-mono tracking-wider uppercase block mb-4 ${
-            darkMode ? 'text-slate-400' : 'text-slate-600'
-          }`}>
-            Core Ecosystem & Tools
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-3 max-w-4xl mx-auto">
-            {[
-              { name: "Python", bg: "from-blue-600 to-yellow-600" },
-              { name: "Java", bg: "from-orange-500 to-red-600" },
-              { name: "React.js", bg: "from-cyan-400 to-blue-500" },
-              { name: "Node.js", bg: "from-green-500 to-emerald-600" },
-              { name: "Flask", bg: "from-slate-600 to-zinc-800" },
-              { name: "Hugging Face", bg: "from-amber-400 to-orange-500" },
-              { name: "Scikit-Learn", bg: "from-orange-400 to-blue-500" },
-              { name: "Firebase", bg: "from-amber-500 to-orange-600" },
-              { name: "AWS Cloud", bg: "from-amber-500 to-yellow-600" },
-              { name: "SQL Databases", bg: "from-blue-500 to-indigo-600" },
-              { name: "Tailwind CSS", bg: "from-sky-400 to-cyan-500" },
-              { name: "Git / GitHub", bg: "from-orange-500 to-red-500" }
-            ].map((tool, i) => (
-              <span
-                key={i}
-                className={`px-4 py-2 rounded-xl text-xs font-mono font-medium border shadow-sm transition-all duration-200 hover:scale-105 ${
-                  darkMode
-                    ? 'bg-slate-900/80 border-slate-800 text-slate-200 hover:border-cyan-500/40'
-                    : 'bg-white border-slate-200 text-slate-800 hover:border-blue-400'
-                }`}
-              >
-                {tool.name}
-              </span>
-            ))}
-          </div>
-        </div>
-
       </div>
-    </section>
+    </Section>
   );
 }

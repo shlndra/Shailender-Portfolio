@@ -1,77 +1,59 @@
-import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  ExternalLink, 
-  Layers, 
-  Code2, 
-  Scale, 
-  Gamepad2, 
-  MessageSquareCode, 
-  Navigation, 
-  Music, 
-  Recycle,
-  Star
-} from 'lucide-react';
-import { GithubIcon } from './Icons';
+import React, { useState, useMemo } from 'react';
+import { useTheme, Section } from '../App';
 import { projectsData } from '../data/portfolioData';
+import { ExternalLink, Scale, Gamepad2, MessageSquareCode, Navigation, Music, Recycle, ArrowUpRight, Sparkles, ShoppingBag, Brain } from 'lucide-react';
+import { Github } from './Icons';
 
-export default function Projects({ darkMode }) {
-  const [activeFilter, setActiveFilter] = useState('All');
+const iconMap = {
+  Scale, Gamepad2, MessageSquareCode, Navigation, Music, Recycle, ShoppingBag, Brain,
+};
 
-  const categories = ['All', 'AI & LawTech', 'NLP & AI', 'AI & Games', 'Full Stack & Cloud', 'Machine Learning'];
+export default function Projects() {
+  const { darkMode } = useTheme();
+  const [filter, setFilter] = useState('All');
 
-  const filteredProjects = activeFilter === 'All' 
-    ? projectsData 
-    : projectsData.filter(p => p.category.toLowerCase().includes(activeFilter.toLowerCase()) || activeFilter.toLowerCase().includes(p.category.toLowerCase()));
+  const categories = useMemo(() => {
+    const cats = ['All', ...new Set(projectsData.map(p => p.category))];
+    return cats;
+  }, []);
 
-  const getIcon = (iconName) => {
-    switch (iconName) {
-      case 'Scale': return <Scale size={24} className="text-cyan-400" />;
-      case 'Gamepad2': return <Gamepad2 size={24} className="text-blue-400" />;
-      case 'MessageSquareCode': return <MessageSquareCode size={24} className="text-purple-400" />;
-      case 'Navigation': return <Navigation size={24} className="text-emerald-400" />;
-      case 'Music': return <Music size={24} className="text-amber-400" />;
-      case 'Recycle': return <Recycle size={24} className="text-green-400" />;
-      default: return <Code2 size={24} className="text-cyan-400" />;
-    }
-  };
+  const filteredProjects = useMemo(() => {
+    return filter === 'All' ? projectsData : projectsData.filter(p => p.category === filter);
+  }, [filter]);
+
+  const featured = filteredProjects.filter(p => p.featured);
+  const others = filteredProjects.filter(p => !p.featured);
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-cyan-500/10 via-blue-500/10 to-indigo-500/5 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+    <Section id="projects" className="py-24 md:py-32 px-6">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 mb-3">
-            <Sparkles size={12} />
-            <span>ENGINEERED TO SOLVE REAL PROBLEMS</span>
-          </div>
-          <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${
-            darkMode ? 'text-white' : 'text-slate-900'
-          }`}>
-            Featured <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Projects</span>
+        <div className="text-center mb-16">
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 text-violet-500 flex items-center justify-center gap-1.5">
+            <Sparkles size={16} />
+            Featured Work & Deployments
+          </p>
+          <h2 className={`text-3xl md:text-5xl font-black mb-4 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+            Things I've <span className="gradient-text">Built</span>
           </h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full mt-3" />
-          <p className={`mt-4 text-base max-w-2xl ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            Explore selected production systems, AI simulations, game engines, and full-stack platforms I've engineered.
+          <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-cyan-500 mx-auto rounded-full mb-4" />
+          <p className={`max-w-2xl mx-auto text-sm md:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+            Explore production systems, AI pipelines, and interactive web applications designed for real-world impact.
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveFilter(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition-all duration-200 cursor-pointer ${
-                activeFilter === cat
-                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20'
+              onClick={() => setFilter(cat)}
+              className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 magnetic-btn ${
+                filter === cat
+                  ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
                   : darkMode
-                    ? 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
-                    : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200 border border-slate-200'
+                    ? 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                    : 'bg-black/5 text-slate-600 hover:bg-black/10 hover:text-slate-900'
               }`}
             >
               {cat}
@@ -79,163 +61,220 @@ export default function Projects({ darkMode }) {
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className={`group rounded-3xl border flex flex-col justify-between overflow-hidden transition-all duration-300 hover:-translate-y-1.5 ${
-                darkMode 
-                  ? 'bg-slate-900/60 border-slate-800 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-950/30' 
-                  : 'bg-white border-slate-200 hover:border-blue-300 hover:shadow-2xl hover:shadow-slate-200/80'
-              }`}
-            >
-              <div>
-                {/* Project Image Preview / Banner Header */}
-                <div className="relative h-48 w-full overflow-hidden bg-slate-950 flex items-center justify-center border-b border-slate-800">
-                  {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextElementSibling.style.display = 'flex';
-                      }}
-                    />
-                  ) : null}
-                  
-                  {/* Fallback Graphic */}
-                  <div 
-                    className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-950 p-6 text-center"
-                    style={{ display: project.image ? 'none' : 'flex' }}
-                  >
-                    <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 mb-2">
-                      {getIcon(project.fallbackIcon)}
+        {/* Featured Projects Grid */}
+        {featured.length > 0 && (
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {featured.map((project) => {
+              const FallbackIcon = iconMap[project.fallbackIcon] || Scale;
+              return (
+                <div
+                  key={project.id}
+                  className={`group relative rounded-2xl overflow-hidden card-hover border flex flex-col justify-between ${
+                    darkMode 
+                      ? 'glass border-white/5 hover:border-violet-500/40' 
+                      : 'glass-light border-black/5 hover:border-violet-500/40'
+                  }`}
+                >
+                  <div>
+                    {/* Project Image */}
+                    <div className="relative h-56 md:h-64 overflow-hidden bg-slate-900/40">
+                      {project.image ? (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-600/20 to-cyan-600/20">
+                          <FallbackIcon size={64} className="text-violet-400/40" />
+                        </div>
+                      )}
+                      
+                      {/* Gradient overlay */}
+                      <div className={`absolute inset-0 bg-gradient-to-t ${
+                        darkMode ? 'from-[#0a0520] via-transparent to-black/30' : 'from-white via-transparent to-black/20'
+                      }`} />
+                      
+                      {/* Category badge */}
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-violet-600/90 text-white backdrop-blur-md shadow-md">
+                          {project.category}
+                        </span>
+                      </div>
+
+                      {project.stats && (
+                        <div className="absolute bottom-4 left-4 z-10">
+                          <span className={`text-xs px-2.5 py-1 rounded-md backdrop-blur-md font-medium ${
+                            darkMode ? 'bg-black/60 text-slate-200 border border-white/10' : 'bg-white/80 text-slate-800 border border-black/10'
+                          }`}>
+                            {project.stats}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                    <span className="font-mono text-xs text-slate-400 font-semibold">{project.title}</span>
-                  </div>
 
-                  {/* Category Pill Tag */}
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-slate-950/80 backdrop-blur-md border border-slate-700/80 text-cyan-400 shadow-md">
-                    {project.category}
-                  </div>
-
-                  {/* Featured Star */}
-                  {project.featured && (
-                    <div className="absolute top-3 right-3 p-1.5 rounded-full bg-cyan-500/20 backdrop-blur-md border border-cyan-500/40 text-cyan-300" title="Featured Project">
-                      <Star size={14} className="fill-cyan-400 text-cyan-400" />
+                    {/* Content */}
+                    <div className="p-6 md:p-7">
+                      <h3 className={`text-xl font-bold mb-1.5 group-hover:text-violet-400 transition-colors ${
+                        darkMode ? 'text-white' : 'text-slate-900'
+                      }`}>
+                        {project.title}
+                      </h3>
+                      <p className={`text-xs font-semibold tracking-wide uppercase mb-3 ${
+                        darkMode ? 'text-cyan-400' : 'text-violet-600'
+                      }`}>
+                        {project.tagline}
+                      </p>
+                      <p className={`text-sm leading-relaxed mb-5 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-600'
+                      }`}>
+                        {project.description}
+                      </p>
+                      
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.technologies.map((tech, j) => (
+                          <span key={j} className={`text-xs px-2.5 py-1 rounded-lg font-medium ${
+                            darkMode ? 'bg-white/5 text-slate-300 border border-white/5' : 'bg-black/5 text-slate-700 border border-black/5'
+                          }`}>
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  )}
-                </div>
-
-                {/* Project Body */}
-                <div className="p-6">
-                  <div className="mb-2">
-                    <h3 className={`text-xl font-bold group-hover:text-cyan-400 transition-colors ${
-                      darkMode ? 'text-white' : 'text-slate-900'
-                    }`}>
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-cyan-500 font-mono mt-0.5">
-                      {project.tagline}
-                    </p>
                   </div>
 
-                  <p className={`text-xs sm:text-sm leading-relaxed mb-6 line-clamp-4 ${
-                    darkMode ? 'text-slate-300' : 'text-slate-600'
+                  {/* Actions Bar */}
+                  <div className={`px-6 pb-6 pt-2 flex items-center gap-3 border-t ${
+                    darkMode ? 'border-white/5' : 'border-black/5'
                   }`}>
-                    {project.description}
-                  </p>
-
-                  {/* Tech stack pills */}
-                  <div className="flex flex-wrap gap-1.5 mb-6">
-                    {project.technologies.map((t, idx) => (
-                      <span
-                        key={idx}
-                        className={`text-[11px] font-mono px-2.5 py-1 rounded-lg border ${
+                    {project.demoUrl ? (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs md:text-sm text-white bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 shadow-md shadow-violet-500/20 transition-all magnetic-btn"
+                      >
+                        <ExternalLink size={15} />
+                        Live Demo
+                      </a>
+                    ) : null}
+                    {project.githubUrl ? (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs md:text-sm border transition-all magnetic-btn ${
                           darkMode 
-                            ? 'bg-slate-950/80 border-slate-800 text-slate-300' 
-                            : 'bg-slate-100 border-slate-200 text-slate-700'
+                            ? 'border-white/15 bg-white/5 hover:bg-white/10 text-white' 
+                            : 'border-black/15 bg-black/5 hover:bg-black/10 text-slate-800'
                         }`}
                       >
-                        {t}
-                      </span>
-                    ))}
+                        <Github size={15} />
+                        Source Code
+                      </a>
+                    ) : null}
                   </div>
                 </div>
-              </div>
+              );
+            })}
+          </div>
+        )}
 
-              {/* Action Buttons in Card Footer */}
-              <div className={`p-6 pt-0 border-t border-slate-800/40 flex items-center justify-between mt-auto`}>
-                <div className="flex items-center gap-3 w-full pt-4">
-                  {project.demoUrl ? (
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all"
-                    >
-                      <span>Live Demo</span>
-                      <ExternalLink size={13} />
-                    </a>
-                  ) : null}
+        {/* Other Projects */}
+        {others.length > 0 && (
+          <div>
+            <h3 className={`text-lg font-bold mb-6 ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+              Additional Notable Projects
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {others.map((project) => {
+                const FallbackIcon = iconMap[project.fallbackIcon] || Scale;
+                return (
+                  <div
+                    key={project.id}
+                    className={`group p-6 rounded-2xl card-hover border flex flex-col justify-between ${
+                      darkMode 
+                        ? 'glass border-white/5 hover:border-violet-500/40' 
+                        : 'glass-light border-black/5 hover:border-violet-500/40'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className={`p-3 rounded-xl ${
+                          darkMode ? 'bg-violet-500/10 text-violet-400' : 'bg-violet-500/10 text-violet-600'
+                        }`}>
+                          <FallbackIcon size={22} />
+                        </div>
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                          darkMode ? 'bg-white/5 text-slate-400' : 'bg-black/5 text-slate-600'
+                        }`}>
+                          {project.category}
+                        </span>
+                      </div>
+                      
+                      <h4 className={`text-lg font-bold mb-1.5 group-hover:text-violet-400 transition-colors ${
+                        darkMode ? 'text-white' : 'text-slate-900'
+                      }`}>
+                        {project.title}
+                      </h4>
+                      <p className={`text-xs font-semibold mb-2.5 ${
+                        darkMode ? 'text-violet-400' : 'text-violet-600'
+                      }`}>
+                        {project.tagline}
+                      </p>
+                      <p className={`text-sm leading-relaxed mb-4 ${
+                        darkMode ? 'text-slate-400' : 'text-slate-600'
+                      }`}>
+                        {project.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {project.technologies.map((tech, j) => (
+                          <span key={j} className={`text-xs px-2.5 py-0.5 rounded-md ${
+                            darkMode ? 'bg-white/5 text-slate-400' : 'bg-black/5 text-slate-600'
+                          }`}>
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                  {project.githubUrl ? (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all hover:scale-[1.02] active:scale-[0.98] ${
-                        project.demoUrl ? 'w-auto' : 'w-full'
-                      } ${
-                        darkMode 
-                          ? 'border-slate-800 bg-slate-950/80 text-slate-300 hover:text-white hover:border-slate-700' 
-                          : 'border-slate-200 bg-slate-50 text-slate-700 hover:text-slate-900'
-                      }`}
-                    >
-                      <GithubIcon size={14} />
-                      <span>{project.demoUrl ? 'Code' : 'View Repository'}</span>
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-
-            </div>
-          ))}
-        </div>
-
-        {/* GitHub profile link promo banner */}
-        <div className={`mt-16 p-8 rounded-3xl border flex flex-col sm:flex-row items-center justify-between gap-6 ${
-          darkMode ? 'bg-slate-900/40 border-slate-800' : 'bg-slate-50 border-slate-200'
-        }`}>
-          <div className="flex items-center gap-4 text-center sm:text-left">
-            <div className="p-3.5 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0 hidden sm:flex">
-              <GithubIcon size={28} />
-            </div>
-            <div>
-              <h4 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                See all public repositories on GitHub
-              </h4>
-              <p className={`text-xs sm:text-sm mt-0.5 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Check out active experiments, ML notebooks, and source code on @shlndra
-              </p>
+                    <div className="flex items-center gap-3 pt-3 border-t border-white/5">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+                            darkMode 
+                              ? 'border-white/10 hover:border-violet-500/50 text-slate-300 hover:text-white bg-white/5' 
+                              : 'border-black/10 hover:border-violet-500/50 text-slate-700 hover:text-slate-900 bg-black/5'
+                          }`}
+                        >
+                          <Github size={13} />
+                          GitHub Repository
+                        </a>
+                      )}
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:opacity-90 transition-opacity"
+                        >
+                          <ExternalLink size={13} />
+                          Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-
-          <a
-            href="https://github.com/shlndra"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-slate-950 border border-slate-800 text-white hover:border-cyan-500/40 transition-all duration-200 hover:scale-105 shrink-0"
-          >
-            <GithubIcon size={16} />
-            <span>github.com/shlndra</span>
-            <ExternalLink size={13} className="text-cyan-400" />
-          </a>
-        </div>
-
+        )}
       </div>
-    </section>
+    </Section>
   );
 }

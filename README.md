@@ -1,4 +1,4 @@
-# ⚡ Shailender Kumar — Portfolio (`Shailender_Portfolio`)
+# ⚡ Shailender — Portfolio (`Shailender_Portfolio`)
 
 > **Building the Future with Intelligent Systems**  
 > Modern, high-performance portfolio for **Shailender**, an AI & Machine Learning Engineer and Full-Stack Developer.
@@ -35,7 +35,7 @@ This portfolio showcases the full spectrum of Shailender's work, experience, tec
   - *When I First Started Learning Data Structures and Algorithms (DSA)* (Medium)
   - *Why Learning AI is Essential in Today’s World* (Medium)
 - **Interactive Contact**:
-  - Working email sender (auto-drafts to `sk0230148@gmail.com`)
+  - Working email sender (auto-drafts to `reachoutshailender@gmail.com`)
   - Direct Phone / WhatsApp (+91-7678664379)
   - Copy-to-clipboard email with confetti animations
   - Links to GitHub (`@shlndra`), LinkedIn, and Instagram.

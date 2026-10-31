@@ -1,177 +1,78 @@
 import React from 'react';
-import { 
-  ArrowUp, 
-  Heart, 
-  Mail, 
-  FileText 
-} from 'lucide-react';
-import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
+import { useTheme } from '../App';
 import { personalInfo } from '../data/portfolioData';
+import { Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Instagram } from './Icons';
 
-export default function Footer({ darkMode }) {
+export default function Footer() {
+  const { darkMode } = useTheme();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className={`border-t relative z-10 transition-colors ${
-      darkMode ? 'bg-slate-950 border-slate-800/80' : 'bg-slate-100 border-slate-200'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-          
-          {/* Brand Info */}
-          <div className="md:col-span-6 flex flex-col items-start">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-mono font-bold text-white text-xs">
-                SK
-              </div>
-              <span className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                Shailender<span className="text-cyan-400">.ai</span>
-              </span>
-            </div>
+    <footer className={`relative ${darkMode ? 'bg-[#020010]' : 'bg-white'}`}>
+      {/* Top gradient line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
 
-            <p className={`text-xs sm:text-sm max-w-sm mb-4 leading-relaxed ${
-              darkMode ? 'text-slate-400' : 'text-slate-600'
-            }`}>
-              {personalInfo.shortBio}
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Brand */}
+          <div className="text-center md:text-left">
+            <span className="text-xl font-black gradient-text">Shailender</span>
+            <p className={`text-sm mt-2 ${darkMode ? 'text-slate-500' : 'text-slate-500'}`}>
+              Designed & built with{' '}
+              <Heart size={12} className="inline text-red-500 fill-red-500" />{' '}
+              by {personalInfo.fullName}
             </p>
-
-            <div className="flex items-center gap-3">
-              <a
-                href={personalInfo.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2 rounded-lg border text-slate-400 hover:text-white transition-colors ${
-                  darkMode ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800' : 'border-slate-200 bg-white hover:bg-slate-100'
-                }`}
-                aria-label="GitHub"
-              >
-                <GithubIcon size={16} />
-              </a>
-
-              <a
-                href={personalInfo.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2 rounded-lg border text-slate-400 hover:text-blue-400 transition-colors ${
-                  darkMode ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800' : 'border-slate-200 bg-white hover:bg-slate-100'
-                }`}
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon size={16} />
-              </a>
-
-              <a
-                href={personalInfo.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2 rounded-lg border text-slate-400 hover:text-pink-400 transition-colors ${
-                  darkMode ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800' : 'border-slate-200 bg-white hover:bg-slate-100'
-                }`}
-                aria-label="Instagram"
-              >
-                <InstagramIcon size={16} />
-              </a>
-
-              <a
-                href={personalInfo.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-2 rounded-lg border text-slate-400 hover:text-cyan-400 transition-colors ${
-                  darkMode ? 'border-slate-800 bg-slate-900/60 hover:bg-slate-800' : 'border-slate-200 bg-white hover:bg-slate-100'
-                }`}
-                aria-label="Resume"
-              >
-                <FileText size={16} />
-              </a>
-            </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="md:col-span-3">
-            <h4 className={`text-xs font-mono font-bold tracking-wider uppercase mb-3 ${
-              darkMode ? 'text-slate-300' : 'text-slate-700'
-            }`}>
-              Navigation
-            </h4>
-            <ul className="space-y-2 text-xs font-mono">
-              <li>
-                <a href="#about" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                  // About Me
-                </a>
-              </li>
-              <li>
-                <a href="#skills" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                  // Tech Stack
-                </a>
-              </li>
-              <li>
-                <a href="#experience" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                  // Work Experience
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                  // Featured Projects
-                </a>
-              </li>
-              <li>
-                <a href="#education" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                  // Education
-                </a>
-              </li>
-              <li>
-                <a href="#blogs" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                  // Medium Blogs
-                </a>
-              </li>
-            </ul>
+          {/* Social */}
+          <div className="flex items-center gap-3">
+            {[
+              { icon: Github, href: personalInfo.socials.github },
+              { icon: Linkedin, href: personalInfo.socials.linkedin },
+              { icon: Instagram, href: personalInfo.socials.instagram },
+            ].map(({ icon: Icon, href }, i) => (
+              <a
+                key={i}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-2.5 rounded-full transition-all duration-300 ${
+                  darkMode 
+                    ? 'text-slate-500 hover:text-violet-400 hover:bg-white/5' 
+                    : 'text-slate-400 hover:text-violet-600 hover:bg-black/5'
+                }`}
+              >
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
 
-          {/* Contact Details */}
-          <div className="md:col-span-3">
-            <h4 className={`text-xs font-mono font-bold tracking-wider uppercase mb-3 ${
-              darkMode ? 'text-slate-300' : 'text-slate-700'
-            }`}>
-              Direct Contact
-            </h4>
-            <div className="space-y-2 text-xs font-mono text-slate-400">
-              <div>Email: {personalInfo.email}</div>
-              <div>Phone: {personalInfo.phone}</div>
-              <div>Location: {personalInfo.location}</div>
-              <div className="text-emerald-400 pt-1 font-semibold">
-                Status: Available for Internships
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className={`text-xs flex items-center gap-1.5 ${
-            darkMode ? 'text-slate-400' : 'text-slate-600'
-          }`}>
-            <span>Designed & Built with</span>
-            <Heart size={13} className="text-red-500 fill-red-500 inline" />
-            <span>by Shailender • {new Date().getFullYear()}</span>
-          </p>
-
+          {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all hover:scale-105 cursor-pointer ${
+            className={`p-3 rounded-full transition-all duration-300 magnetic-btn ${
               darkMode 
-                ? 'border-slate-800 bg-slate-900 text-slate-300 hover:text-white hover:border-cyan-500/40' 
-                : 'border-slate-200 bg-white text-slate-700 hover:text-black hover:border-blue-300'
+                ? 'bg-white/5 hover:bg-violet-500/20 text-slate-400 hover:text-violet-400' 
+                : 'bg-black/5 hover:bg-violet-500/10 text-slate-600 hover:text-violet-600'
             }`}
+            aria-label="Back to top"
           >
-            <span>Back to top</span>
-            <ArrowUp size={13} />
+            <ArrowUp size={18} />
           </button>
         </div>
 
+        {/* Copyright */}
+        <div className={`text-center mt-8 pt-6 border-t ${
+          darkMode ? 'border-white/5' : 'border-black/5'
+        }`}>
+          <p className={`text-xs ${darkMode ? 'text-slate-600' : 'text-slate-400'}`}>
+            © {new Date().getFullYear()} {personalInfo.fullName}. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );
