@@ -79,7 +79,7 @@ export default function Contact() {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-cyan-500 mx-auto rounded-full mb-6" />
           <p className={`max-w-xl mx-auto text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-            Whether you are a recruiter looking for an AI & Full-Stack engineer, an engineering leader with an internship opening, or a fellow builder wanting to collaborate, my inbox is always open.
+            Whether you are a recruiter looking for an AI & Full-Stack engineer, an engineering leader hiring for technical roles, or a fellow builder wanting to collaborate, my inbox is always open.
           </p>
         </div>
 
@@ -192,7 +192,7 @@ export default function Contact() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </span>
               <span>
-                <strong>Actively Interviewing</strong> for 2025/2026 Internships & AI / Full-Stack Roles
+                <strong>Actively Interviewing</strong> for Full-Time AI & Software Engineering Positions
               </span>
             </div>
           </div>

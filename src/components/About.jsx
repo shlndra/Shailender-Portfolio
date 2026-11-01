@@ -163,7 +163,7 @@ export default function About() {
                   { icon: MapPin, label: 'Location', value: personalInfo.location },
                   { icon: Mail, label: 'Direct Email', value: personalInfo.email },
                   { icon: GraduationCap, label: 'Degree', value: 'B.Tech CSE (AI & ML)' },
-                  { icon: Briefcase, label: 'Availability', value: 'Open for 2025/2026 roles' },
+                  { icon: Briefcase, label: 'Availability', value: 'Open for Full-Time Roles' },
                 ].map(({ icon: Icon, label, value }) => (
                   <div key={label} className={`p-3 rounded-xl border transition-colors ${
                     darkMode ? 'bg-white/2 border-white/5 hover:bg-white/5' : 'bg-black/2 border-black/5 hover:bg-black/5'
