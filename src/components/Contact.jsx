@@ -61,6 +61,15 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
+          {/* Personal Avatar */}
+          <div className="relative inline-block mx-auto mb-6 group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-cyan-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
+            <img
+              src={personalInfo.avatarHero}
+              alt={personalInfo.fullName}
+              className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover object-top ring-4 ring-violet-500/40 shadow-xl transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 text-violet-500 flex items-center justify-center gap-1.5">
             <Sparkles size={16} />
             Let's Start a Conversation

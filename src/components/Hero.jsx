@@ -99,6 +99,40 @@ export default function Hero() {
       <div className={`relative z-10 max-w-5xl mx-auto text-center transition-all duration-1000 ${
         showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
+        {/* Profile Avatar Frame */}
+        <div className="relative mx-auto mb-6 w-32 h-32 sm:w-36 sm:h-36 md:w-44 md:h-44 group">
+          {/* Animated gradient glow backdrop */}
+          <div className="absolute -inset-1.5 bg-gradient-to-tr from-violet-600 via-cyan-500 to-fuchsia-500 rounded-full blur-lg opacity-70 group-hover:opacity-100 transition duration-700 animate-pulse" />
+          
+          {/* Circular image container */}
+          <div className={`relative w-full h-full rounded-full overflow-hidden p-1 bg-gradient-to-tr from-violet-500 via-cyan-400 to-fuchsia-500 shadow-2xl ${
+            darkMode ? 'shadow-violet-500/25' : 'shadow-violet-500/15'
+          }`}>
+            <img
+              src={personalInfo.avatarHero}
+              alt={personalInfo.fullName}
+              className="w-full h-full object-cover object-top rounded-full transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Active Status Badge */}
+          {personalInfo.isHireable && (
+            <div
+              className={`absolute bottom-1 right-1 sm:bottom-2 sm:right-2 p-1.5 rounded-full border shadow-xl flex items-center justify-center ${
+                darkMode
+                  ? 'bg-[#030014] border-emerald-500/50 text-emerald-400'
+                  : 'bg-white border-emerald-500/50 text-emerald-600'
+              }`}
+              title="Available for opportunities"
+            >
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+              </span>
+            </div>
+          )}
+        </div>
+
         {/* Available badge */}
         {personalInfo.isHireable && (
           <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 ${

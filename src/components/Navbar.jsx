@@ -63,9 +63,14 @@ export default function Navbar() {
           : 'py-4.5'
       }`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo with profile avatar */}
           <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-             className="relative group">
+             className="relative group flex items-center gap-2.5">
+            <img
+              src={personalInfo.avatarHero}
+              alt={personalInfo.fullName}
+              className="w-8 h-8 rounded-full object-cover object-top ring-2 ring-violet-500/50 shadow-md transition-transform duration-300 group-hover:scale-105"
+            />
             <span className="text-xl md:text-2xl font-black tracking-tight gradient-text">Shailender</span>
             <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-300 group-hover:w-full`} />
           </a>

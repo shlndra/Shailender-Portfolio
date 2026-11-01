@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme, Section } from '../App';
 import { personalInfo } from '../data/portfolioData';
-import { Brain, Code2, Database, MapPin, Mail, GraduationCap, Briefcase, Zap, CheckCircle2, FileText, ArrowUpRight, Award } from 'lucide-react';
+import { Brain, Code2, Database, MapPin, Mail, GraduationCap, Briefcase, Zap, CheckCircle2, FileText, ArrowUpRight, Award, UserCheck, Sparkles } from 'lucide-react';
 
 const whatIDo = [
   {
@@ -48,6 +48,7 @@ const recruiterHighlights = [
 
 export default function About() {
   const { darkMode } = useTheme();
+  const [activePhoto, setActivePhoto] = useState('executive'); // 'executive' | 'tech'
 
   return (
     <Section id="about" className="py-24 md:py-32 px-6">
@@ -66,40 +67,130 @@ export default function About() {
           <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-cyan-500 mx-auto rounded-full" />
         </div>
 
-        {/* Bio Card */}
-        <div className={`relative rounded-3xl p-8 md:p-12 mb-16 overflow-hidden border ${
+        {/* Bio & Portrait Card */}
+        <div className={`relative rounded-3xl p-6 sm:p-8 md:p-12 mb-16 overflow-hidden border ${
           darkMode ? 'glass border-white/5' : 'glass-light border-black/5'
         }`}>
           {/* Gradient accent top border */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-cyan-500 to-violet-500" />
 
-          <div className="grid md:grid-cols-5 gap-10 items-center">
-            {/* Bio Text */}
-            <div className="md:col-span-3">
-              <h3 className={`text-2xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
+            {/* Portrait Spotlight Card (5 cols on lg) */}
+            <div className="lg:col-span-5 flex flex-col items-center">
+              <div className={`relative w-full max-w-sm rounded-3xl p-3 border shadow-2xl overflow-hidden ${
+                darkMode ? 'bg-white/2 border-white/10 shadow-violet-500/10' : 'bg-black/2 border-black/10 shadow-violet-500/5'
+              }`}>
+                {/* Photo Switcher Toggle */}
+                <div className="flex items-center justify-center p-1 rounded-2xl bg-black/30 dark:bg-black/50 backdrop-blur-md mb-3 border border-white/10">
+                  <button
+                    onClick={() => setActivePhoto('executive')}
+                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                      activePhoto === 'executive'
+                        ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
+                        : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-black'
+                    }`}
+                  >
+                    <span>👔 Founder & Exec</span>
+                  </button>
+                  <button
+                    onClick={() => setActivePhoto('tech')}
+                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                      activePhoto === 'tech'
+                        ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
+                        : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-black'
+                    }`}
+                  >
+                    <span>⚡ AI Engineer</span>
+                  </button>
+                </div>
+
+                {/* Photo Frame */}
+                <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden group">
+                  <img
+                    src={activePhoto === 'executive' ? personalInfo.avatarFormal : personalInfo.avatarHero}
+                    alt={personalInfo.fullName}
+                    className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+                  
+                  {/* Overlay Info */}
+                  <div className="absolute bottom-3 left-3 right-3 text-white">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 mb-1">
+                      {activePhoto === 'executive' ? 'Velrix Core' : 'Sushant University'}
+                    </span>
+                    <p className="text-base font-black">
+                      {activePhoto === 'executive' ? 'Founder & Technical Lead' : 'B.Tech CSE (AI & ML)'}
+                    </p>
+                    <p className="text-xs text-slate-300 mt-0.5">
+                      {activePhoto === 'executive' ? 'MSME Certified • ₹2L+ Monthly Revenue' : 'Final Year (2023–2027) • Gurgaon'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Card Footer Status */}
+                <div className="mt-3 px-2 flex items-center justify-between text-xs">
+                  <span className="flex items-center gap-1 text-slate-400 font-medium">
+                    <MapPin size={13} className="text-violet-400" />
+                    {personalInfo.location}
+                  </span>
+                  <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse inline-block" />
+                    Available to Hire
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Text & Actions (7 cols on lg) */}
+            <div className="lg:col-span-7">
+              <h3 className={`text-2xl sm:text-3xl font-black mb-4 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                 Bridging Intelligent Models with High-Impact Applications
               </h3>
-              <p className={`text-base md:text-lg leading-relaxed mb-6 ${
+              <p className={`text-base md:text-lg leading-relaxed mb-5 ${
                 darkMode ? 'text-slate-300' : 'text-slate-700'
               }`}>
                 {personalInfo.bio}
               </p>
-              <p className={`text-base leading-relaxed mb-6 ${
+              <p className={`text-sm md:text-base leading-relaxed mb-6 ${
                 darkMode ? 'text-slate-400' : 'text-slate-600'
               }`}>
                 My approach to software and AI blends strong mathematical foundations with a relentless drive for building delightful, scalable user experiences. From training custom machine learning classifiers to orchestrating real-time telematics dashboards, I focus on measurable outcomes.
               </p>
 
+              {/* Quick Info Grid */}
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                {[
+                  { icon: MapPin, label: 'Location', value: personalInfo.location },
+                  { icon: Mail, label: 'Direct Email', value: personalInfo.email },
+                  { icon: GraduationCap, label: 'Degree', value: 'B.Tech CSE (AI & ML)' },
+                  { icon: Briefcase, label: 'Availability', value: 'Open for 2025/2026 roles' },
+                ].map(({ icon: Icon, label, value }) => (
+                  <div key={label} className={`p-3 rounded-xl border transition-colors ${
+                    darkMode ? 'bg-white/2 border-white/5 hover:bg-white/5' : 'bg-black/2 border-black/5 hover:bg-black/5'
+                  }`}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <Icon size={14} className="text-violet-400" />
+                      <span className={`text-[11px] font-medium uppercase tracking-wider ${darkMode ? 'text-slate-500' : 'text-slate-500'}`}>
+                        {label}
+                      </span>
+                    </div>
+                    <p className={`text-xs sm:text-sm font-semibold truncate ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                      {value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
               {/* Quick Resume & Certificates CTA */}
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3">
                 <a
                   href={personalInfo.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/20 hover:opacity-95 transition-all magnetic-btn"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/20 hover:opacity-95 transition-all magnetic-btn"
                 >
                   <FileText size={16} />
-                  View Full Resume (PDF)
+                  <span>Resume (PDF)</span>
                   <ArrowUpRight size={14} />
                 </a>
 
@@ -108,14 +199,14 @@ export default function About() {
                     href={personalInfo.certificatesUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border transition-all magnetic-btn ${
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all magnetic-btn ${
                       darkMode 
                         ? 'border-violet-500/30 text-violet-300 hover:text-white hover:bg-violet-500/10' 
                         : 'border-violet-500/30 text-violet-700 hover:text-violet-900 hover:bg-violet-500/10'
                     }`}
                   >
                     <Award size={16} />
-                    <span>Certificates Drive</span>
+                    <span>Certificates</span>
                     <ArrowUpRight size={14} />
                   </a>
                 )}
@@ -123,7 +214,7 @@ export default function About() {
                 <a
                   href="#contact"
                   onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border transition-all magnetic-btn ${
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all magnetic-btn ${
                     darkMode 
                       ? 'border-white/10 text-slate-300 hover:text-white hover:bg-white/5' 
                       : 'border-black/10 text-slate-700 hover:text-slate-900 hover:bg-black/5'
@@ -131,36 +222,6 @@ export default function About() {
                 >
                   Let's Talk
                 </a>
-              </div>
-            </div>
-
-            {/* Quick Info Grid */}
-            <div className="md:col-span-2">
-              <div className={`p-6 rounded-2xl border space-y-4 ${
-                darkMode ? 'bg-white/2 border-white/5' : 'bg-black/2 border-black/5'
-              }`}>
-                {[
-                  { icon: MapPin, label: 'Location', value: personalInfo.location },
-                  { icon: Mail, label: 'Direct Email', value: personalInfo.email },
-                  { icon: GraduationCap, label: 'Degree', value: 'B.Tech CSE (AI & ML)' },
-                  { icon: Briefcase, label: 'Availability', value: 'Open for 2025/2026 roles' },
-                ].map(({ icon: Icon, label, value }) => (
-                  <div key={label} className={`flex items-start gap-3 p-3 rounded-xl transition-colors duration-300 ${
-                    darkMode ? 'hover:bg-white/5' : 'hover:bg-black/5'
-                  }`}>
-                    <div className="p-2.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex-shrink-0">
-                      <Icon size={16} className="text-violet-400" />
-                    </div>
-                    <div>
-                      <p className={`text-xs font-medium uppercase tracking-wider ${darkMode ? 'text-slate-500' : 'text-slate-500'}`}>
-                        {label}
-                      </p>
-                      <p className={`text-sm font-semibold break-all ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
-                        {value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>

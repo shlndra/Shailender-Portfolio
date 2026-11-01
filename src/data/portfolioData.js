@@ -10,6 +10,8 @@ export const personalInfo = {
   email: "reachoutshailender@gmail.com",
   phone: "+91 76786 64379",
   isHireable: true,
+  avatarHero: "/images/shailender-hero.jpg",
+  avatarFormal: "/images/shailender-formal.jpg",
   resumeUrl: "https://drive.google.com/file/d/11aA4kaJd3yR6ZYWIfvYb1mUcpgm4g6rk/view",
   certificatesUrl: "https://drive.google.com/drive/folders/1X9_riu_DRJz2M8WQvcGbVJbUFPYy5GcS",
   socials: {
