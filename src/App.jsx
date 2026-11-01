@@ -7,6 +7,10 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Certificates from './components/Certificates';
+import DeveloperTerminal from './components/DeveloperTerminal';
+import CurrentlyBuilding from './components/CurrentlyBuilding';
+import ProjectDemos from './components/ProjectDemos';
+import ShailenderAI from './components/ShailenderAI';
 import Blogs from './components/Blogs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -89,7 +93,7 @@ export default function App() {
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
       <div className={`min-h-screen relative transition-colors duration-500 noise-overlay ${
         darkMode 
-          ? 'bg-[#030014] text-slate-100' 
+          ? 'bg-[#080B12] text-[#F8FAFC]' 
           : 'bg-[#fafafa] text-slate-900'
       }`}>
         {/* Mouse-following gradient spotlight */}
@@ -125,14 +129,20 @@ export default function App() {
         <main className="relative z-10">
           <Hero />
           <About />
+          <Projects />
           <Skills />
           <Experience />
-          <Projects />
           <Education />
           <Certificates />
+          <DeveloperTerminal />
+          <CurrentlyBuilding />
+          <ProjectDemos />
           <Blogs />
           <Contact />
         </main>
+
+        {/* Floating AI Portfolio Assistant */}
+        <ShailenderAI />
 
         {/* Footer */}
         <Footer />

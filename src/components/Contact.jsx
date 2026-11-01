@@ -91,11 +91,7 @@ export default function Contact() {
               <Component
                 key={label}
                 {...(href ? { href, target: href.startsWith('mailto') || href.startsWith('tel') ? undefined : '_blank', rel: 'noopener noreferrer' } : {})}
-                className={`group p-6 rounded-2xl text-center card-hover border flex flex-col justify-between ${
-                  darkMode 
-                    ? 'glass border-white/5 hover:border-violet-500/40' 
-                    : 'glass-light border-black/5 hover:border-violet-500/40'
-                }`}
+                className="group p-6 rounded-2xl text-center card-hover border border-white/10 bg-[#111827] flex flex-col justify-between"
               >
                 <div>
                   <div className={`inline-flex p-4 rounded-2xl mb-4 bg-gradient-to-br from-violet-500/20 to-cyan-500/20 group-hover:scale-110 transition-transform duration-300`}>

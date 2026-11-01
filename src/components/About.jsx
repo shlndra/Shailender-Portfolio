@@ -68,26 +68,22 @@ export default function About() {
         </div>
 
         {/* Bio & Portrait Card */}
-        <div className={`relative rounded-3xl p-6 sm:p-8 md:p-12 mb-16 overflow-hidden border ${
-          darkMode ? 'glass border-white/5' : 'glass-light border-black/5'
-        }`}>
+        <div className="relative rounded-3xl p-6 sm:p-8 md:p-12 mb-16 overflow-hidden border border-white/10 bg-[#111827]">
           {/* Gradient accent top border */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 via-cyan-500 to-violet-500" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#6366F1] via-[#38BDF8] to-[#818CF8]" />
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             {/* Portrait Spotlight Card (5 cols on lg) */}
             <div className="lg:col-span-5 flex flex-col items-center">
-              <div className={`relative w-full max-w-sm rounded-3xl p-3 border shadow-2xl overflow-hidden ${
-                darkMode ? 'bg-white/2 border-white/10 shadow-violet-500/10' : 'bg-black/2 border-black/10 shadow-violet-500/5'
-              }`}>
+              <div className="relative w-full max-w-sm rounded-3xl p-3 border border-white/10 bg-[#080B12] shadow-2xl overflow-hidden">
                 {/* Photo Switcher Toggle */}
-                <div className="flex items-center justify-center p-1 rounded-2xl bg-black/30 dark:bg-black/50 backdrop-blur-md mb-3 border border-white/10">
+                <div className="flex items-center justify-center p-1 rounded-2xl bg-black/40 backdrop-blur-md mb-3 border border-white/10">
                   <button
                     onClick={() => setActivePhoto('executive')}
                     className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 ${
                       activePhoto === 'executive'
-                        ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
-                        : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-black'
+                        ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/25'
+                        : 'text-[#94A3B8] hover:text-white'
                     }`}
                   >
                     <span>👔 Founder & Exec</span>
@@ -96,8 +92,8 @@ export default function About() {
                     onClick={() => setActivePhoto('tech')}
                     className={`flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 ${
                       activePhoto === 'tech'
-                        ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
-                        : darkMode ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-black'
+                        ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/25'
+                        : 'text-[#94A3B8] hover:text-white'
                     }`}
                   >
                     <span>⚡ AI Engineer</span>
@@ -187,7 +183,7 @@ export default function About() {
                   href={personalInfo.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/20 hover:opacity-95 transition-all magnetic-btn"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/20 hover:opacity-95 transition-all magnetic-btn"
                 >
                   <FileText size={16} />
                   <span>Resume (PDF)</span>
@@ -199,11 +195,7 @@ export default function About() {
                     href={personalInfo.certificatesUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all magnetic-btn ${
-                      darkMode 
-                        ? 'border-violet-500/30 text-violet-300 hover:text-white hover:bg-violet-500/10' 
-                        : 'border-violet-500/30 text-violet-700 hover:text-violet-900 hover:bg-violet-500/10'
-                    }`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border border-white/10 text-[#38BDF8] hover:text-white hover:bg-white/5 transition-all magnetic-btn"
                   >
                     <Award size={16} />
                     <span>Certificates</span>
@@ -214,11 +206,7 @@ export default function About() {
                 <a
                   href="#contact"
                   onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all magnetic-btn ${
-                    darkMode 
-                      ? 'border-white/10 text-slate-300 hover:text-white hover:bg-white/5' 
-                      : 'border-black/10 text-slate-700 hover:text-slate-900 hover:bg-black/5'
-                  }`}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border border-white/10 text-[#F8FAFC] hover:bg-white/5 transition-all magnetic-btn"
                 >
                   Let's Talk
                 </a>
@@ -273,31 +261,27 @@ export default function About() {
         </div>
 
         {/* Why Recruiters Hire Me */}
-        <div className={`rounded-3xl p-8 md:p-10 border ${
-          darkMode ? 'glass border-white/5' : 'glass-light border-black/5'
-        }`}>
+        <div className="rounded-3xl p-8 md:p-10 border border-white/10 bg-[#111827]">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20 uppercase tracking-widest">
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#6366F1]/10 text-[#818CF8] border border-[#6366F1]/20 uppercase tracking-widest">
               Recruiter Snapshot
             </span>
-            <h3 className={`text-2xl font-black mt-3 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-              Why I Bring Immediate Value to Your Team
+            <h3 className="text-2xl font-black mt-3 text-[#F8FAFC]">
+              Why I Bring Immediate Value to Your Engineering Team
             </h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {recruiterHighlights.map((point, i) => (
-              <div key={i} className={`p-5 rounded-2xl flex items-start gap-4 ${
-                darkMode ? 'bg-white/2 hover:bg-white/5' : 'bg-black/2 hover:bg-black/5'
-              } transition-colors border border-white/5`}>
+              <div key={i} className="p-5 rounded-2xl flex items-start gap-4 bg-[#080B12] transition-colors border border-white/5">
                 <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 flex-shrink-0 mt-0.5">
                   <CheckCircle2 size={18} />
                 </div>
                 <div>
-                  <h4 className={`text-base font-bold mb-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  <h4 className="text-base font-bold mb-1 text-[#F8FAFC]">
                     {point.title}
                   </h4>
-                  <p className={`text-sm leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className="text-sm leading-relaxed text-[#94A3B8]">
                     {point.desc}
                   </p>
                 </div>

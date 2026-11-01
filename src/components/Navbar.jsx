@@ -5,12 +5,13 @@ import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
 
 const navLinks = [
   { name: 'About', href: '#about' },
+  { name: 'Projects', href: '#projects' },
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
   { name: 'Education', href: '#education' },
-  { name: 'Certificates', href: '#certificates' },
-  { name: 'Blog', href: '#blog' },
+  { name: 'Terminal', href: '#terminal' },
+  { name: 'Live Demos', href: '#demos' },
+  { name: 'Building', href: '#building' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -55,7 +56,7 @@ export default function Navbar() {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         darkMode 
-          ? 'bg-[#030014]/85 backdrop-blur-xl border-b border-white/5' 
+          ? 'bg-[#080B12]/85 backdrop-blur-xl border-b border-white/10' 
           : 'bg-white/85 backdrop-blur-xl border-b border-black/5'
       } ${
         isScrolled 

@@ -1,84 +1,26 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '../App';
 import { personalInfo } from '../data/portfolioData';
-import { Mail, Download, ArrowDown, Sparkles, MapPin } from 'lucide-react';
+import { Mail, Download, ArrowDown, Sparkles, Terminal as TerminalIcon, Code2, Cpu } from 'lucide-react';
 import { Github, Linkedin } from './Icons';
-
-const roles = [
-  "AI & ML Engineer",
-  "Full-Stack Developer",
-  "NLP Enthusiast",
-  "Open Source Builder",
-  "Data Science Practitioner"
-];
-
-// Floating particles component
-function FloatingParticles({ darkMode }) {
-  const particles = useMemo(() => 
-    Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 20 + 15,
-      delay: Math.random() * 10,
-      opacity: Math.random() * 0.5 + 0.1,
-    })),
-  []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className={`absolute rounded-full ${darkMode ? 'bg-violet-400' : 'bg-violet-500'}`}
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            opacity: p.opacity,
-            animation: `float ${p.duration}s ease-in-out ${p.delay}s infinite`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
+import HeroCanvas3D from './HeroCanvas3D';
 
 export default function Hero() {
   const { darkMode } = useTheme();
-  const [displayText, setDisplayText] = useState('');
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [activeRoleIndex, setActiveRoleIndex] = useState(0);
 
-  // Typewriter effect
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const speed = isDeleting ? 40 : 80;
-
-    const timer = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayText(currentRole.substring(0, displayText.length + 1));
-        if (displayText === currentRole) {
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        setDisplayText(currentRole.substring(0, displayText.length - 1));
-        if (displayText === '') {
-          setIsDeleting(false);
-          setRoleIndex((prev) => (prev + 1) % roles.length);
-        }
-      }
-    }, speed);
-
+    const timer = setTimeout(() => setShowContent(true), 150);
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, roleIndex]);
+  }, []);
 
-  // Entrance animation
+  // Cycle target roles every 2.5s
   useEffect(() => {
-    setTimeout(() => setShowContent(true), 300);
+    const roleInterval = setInterval(() => {
+      setActiveRoleIndex((prev) => (prev + 1) % personalInfo.targetRoles.length);
+    }, 2500);
+    return () => clearInterval(roleInterval);
   }, []);
 
   const socialLinks = [
@@ -88,194 +30,192 @@ export default function Hero() {
   ];
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
-      <FloatingParticles darkMode={darkMode} />
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20 md:pt-36 md:pb-24 overflow-hidden">
+      {/* Background ambient gradient orbs */}
+      <div
+        className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[550px] rounded-full blur-[140px] pointer-events-none ${
+          darkMode ? 'bg-[#6366F1]/10' : 'bg-[#6366F1]/10'
+        }`}
+      />
+      <div
+        className={`absolute top-1/3 -right-20 w-[450px] h-[450px] rounded-full blur-[130px] pointer-events-none ${
+          darkMode ? 'bg-[#38BDF8]/10' : 'bg-[#38BDF8]/10'
+        }`}
+      />
 
-      {/* Hero gradient orb */}
-      <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full blur-[150px] pointer-events-none ${
-        darkMode ? 'bg-violet-600/15' : 'bg-violet-400/15'
-      }`} />
-
-      <div className={`relative z-10 max-w-5xl mx-auto text-center transition-all duration-1000 ${
-        showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}>
-        {/* Profile Avatar Frame */}
-        <div className="relative mx-auto mb-6 w-32 h-32 sm:w-36 sm:h-36 md:w-44 md:h-44 group">
-          {/* Animated gradient glow backdrop */}
-          <div className="absolute -inset-1.5 bg-gradient-to-tr from-violet-600 via-cyan-500 to-fuchsia-500 rounded-full blur-lg opacity-70 group-hover:opacity-100 transition duration-700 animate-pulse" />
-          
-          {/* Circular image container */}
-          <div className={`relative w-full h-full rounded-full overflow-hidden p-1 bg-gradient-to-tr from-violet-500 via-cyan-400 to-fuchsia-500 shadow-2xl ${
-            darkMode ? 'shadow-violet-500/25' : 'shadow-violet-500/15'
-          }`}>
-            <img
-              src={personalInfo.avatarHero}
-              alt={personalInfo.fullName}
-              className="w-full h-full object-cover object-top rounded-full transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
-
-          {/* Active Status Badge */}
+      <div
+        className={`relative z-10 max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center transition-all duration-1000 ${
+          showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
+        {/* Left Column: Heading, Subheading, Intro & CTAs */}
+        <div className="lg:col-span-7 text-center lg:text-left">
+          {/* Available for opportunities badge */}
           {personalInfo.isHireable && (
             <div
-              className={`absolute bottom-1 right-1 sm:bottom-2 sm:right-2 p-1.5 rounded-full border shadow-xl flex items-center justify-center ${
+              className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold mb-6 border ${
                 darkMode
-                  ? 'bg-[#030014] border-emerald-500/50 text-emerald-400'
-                  : 'bg-white border-emerald-500/50 text-emerald-600'
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25'
+                  : 'bg-emerald-500/10 text-emerald-700 border-emerald-500/25'
               }`}
-              title="Available for opportunities"
             >
-              <span className="relative flex h-3 w-3">
+              <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
               </span>
+              <span>Available for opportunities</span>
             </div>
           )}
-        </div>
 
-        {/* Available badge */}
-        {personalInfo.isHireable && (
-          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 ${
-            darkMode 
-              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
-              : 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
-          }`}>
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          {/* Main Heading */}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.12] mb-5 text-[#F8FAFC]">
+            Building <span className="gradient-text">Intelligent Systems.</span>
+            <br />
+            Creating Real-World Impact.
+          </h1>
+
+          {/* Subheading */}
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#38BDF8] mb-5">
+            Software Engineer | AI/ML Developer | Full Stack Builder
+          </h2>
+
+          {/* Target Role Pills */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#94A3B8] mr-1 flex items-center gap-1">
+              <Cpu size={14} className="text-[#6366F1]" />
+              Target Roles:
             </span>
-            Available for opportunities
+            {personalInfo.targetRoles.map((role, idx) => (
+              <span
+                key={role}
+                className={`text-xs px-2.5 py-1 rounded-md font-medium transition-all duration-300 ${
+                  activeRoleIndex === idx
+                    ? 'bg-[#6366F1] text-white shadow-md shadow-[#6366F1]/30 scale-105'
+                    : 'bg-white/5 text-[#94A3B8] border border-white/5'
+                }`}
+              >
+                {role}
+              </span>
+            ))}
           </div>
-        )}
 
-        {/* Greeting */}
-        <p className={`text-lg md:text-xl font-medium mb-4 ${
-          darkMode ? 'text-slate-400' : 'text-slate-600'
-        }`}>
-          Hello, I'm
-        </p>
+          {/* Introduction */}
+          <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-[#94A3B8] mb-8 mx-auto lg:mx-0">
+            {personalInfo.intro}
+          </p>
 
-        {/* Name */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6">
-          <span className="gradient-text">{personalInfo.fullName}</span>
-        </h1>
-
-        {/* Typewriter role */}
-        <div className="h-12 md:h-14 flex items-center justify-center mb-8">
-          <span className={`text-xl md:text-3xl font-semibold ${
-            darkMode ? 'text-slate-300' : 'text-slate-700'
-          }`}>
-            {'< '}
-          </span>
-          <span className={`text-xl md:text-3xl font-semibold mx-2 ${
-            darkMode ? 'text-violet-400' : 'text-violet-600'
-          }`}>
-            {displayText}
-          </span>
-          <span className="typewriter-cursor text-xl md:text-3xl">&nbsp;</span>
-          <span className={`text-xl md:text-3xl font-semibold ${
-            darkMode ? 'text-slate-300' : 'text-slate-700'
-          }`}>
-            {' />'}
-          </span>
-        </div>
-
-        {/* Bio */}
-        <p className={`max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-10 ${
-          darkMode ? 'text-slate-400' : 'text-slate-600'
-        }`}>
-          {personalInfo.shortBio}
-        </p>
-
-        {/* Location */}
-        <div className={`flex items-center justify-center gap-2 mb-10 text-sm ${
-          darkMode ? 'text-slate-500' : 'text-slate-500'
-        }`}>
-          <MapPin size={14} />
-          <span>{personalInfo.location}</span>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-          <a
-            href="#projects"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-semibold text-base magnetic-btn overflow-hidden"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              <Sparkles size={18} />
-              View My Work
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </a>
-
-          <a
-            href={personalInfo.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group px-8 py-4 rounded-full font-semibold text-base magnetic-btn border transition-all duration-300 flex items-center gap-2 ${
-              darkMode 
-                ? 'border-white/10 text-slate-300 hover:border-violet-500/50 hover:text-white hover:bg-violet-500/5' 
-                : 'border-black/10 text-slate-700 hover:border-violet-500/50 hover:text-violet-700 hover:bg-violet-500/5'
-            }`}
-          >
-            <Download size={18} />
-            Resume
-          </a>
-        </div>
-
-        {/* Social Links */}
-        <div className="flex items-center justify-center gap-4 mb-16">
-          {socialLinks.map(({ icon: Icon, href, label }) => (
+          {/* CTAs */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 mb-8">
             <a
-              key={label}
-              href={href}
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative px-6 sm:px-7 py-3.5 rounded-full bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white font-semibold text-sm sm:text-base magnetic-btn shadow-lg shadow-[#6366F1]/25 overflow-hidden flex items-center gap-2"
+            >
+              <Sparkles size={17} />
+              <span>View Projects</span>
+            </a>
+
+            <a
+              href={personalInfo.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={label}
-              className={`p-3 rounded-full transition-all duration-300 magnetic-btn ${
-                darkMode 
-                  ? 'bg-white/5 hover:bg-violet-500/20 text-slate-400 hover:text-violet-400' 
-                  : 'bg-black/5 hover:bg-violet-500/10 text-slate-600 hover:text-violet-600'
-              }`}
+              className="px-6 sm:px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base magnetic-btn border border-white/10 text-[#F8FAFC] hover:border-[#6366F1]/60 hover:bg-[#6366F1]/10 transition-all flex items-center gap-2"
             >
-              <Icon size={20} />
+              <Download size={17} />
+              <span>Resume</span>
             </a>
-          ))}
+
+            <a
+              href="#terminal"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#terminal')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-5 py-3.5 rounded-full font-semibold text-sm magnetic-btn border border-white/10 text-[#94A3B8] hover:text-white hover:border-[#38BDF8]/50 hover:bg-[#38BDF8]/10 transition-all flex items-center gap-2"
+              title="Launch Developer Terminal"
+            >
+              <TerminalIcon size={16} className="text-[#38BDF8]" />
+              <span>Interactive CLI</span>
+            </a>
+          </div>
+
+          {/* Social Links & Location */}
+          <div className="flex items-center justify-center lg:justify-start gap-4">
+            <span className="text-xs font-medium text-[#94A3B8] mr-1">Connect:</span>
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="p-2.5 rounded-full bg-white/5 hover:bg-[#6366F1]/20 text-[#94A3B8] hover:text-[#F8FAFC] border border-white/5 transition-all magnetic-btn"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
+            <span className="text-xs text-[#94A3B8] border-l border-white/10 pl-3">
+              {personalInfo.location}
+            </span>
+          </div>
         </div>
 
-        {/* Stats */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto p-6 rounded-2xl ${
-          darkMode ? 'glass' : 'glass-light'
-        }`}>
-          {personalInfo.stats.map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className={`text-2xl md:text-3xl font-black ${
-                darkMode ? 'text-white' : 'text-slate-900'
-              }`}>
-                {stat.value}
-              </div>
-              <div className={`text-sm font-medium mt-1 ${
-                darkMode ? 'text-violet-400' : 'text-violet-600'
-              }`}>
-                {stat.label}
-              </div>
-              <div className={`text-xs mt-0.5 ${
-                darkMode ? 'text-slate-500' : 'text-slate-500'
-              }`}>
-                {stat.subtext}
+        {/* Right Column: 3D Canvas Visual with Portrait Badge */}
+        <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+          {/* Portrait avatar card overlay */}
+          <div className="relative w-full max-w-sm flex flex-col items-center">
+            {/* 3D Canvas Container */}
+            <div className="w-full h-[320px] sm:h-[380px] relative flex items-center justify-center">
+              <HeroCanvas3D darkMode={darkMode} />
+
+              {/* Floating Center Avatar with ambient glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
+                <div className="relative w-28 h-28 sm:w-36 sm:h-36 group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#6366F1] to-[#38BDF8] rounded-full blur-md opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
+                  <div className="relative w-full h-full rounded-full overflow-hidden p-1 bg-gradient-to-tr from-[#6366F1] via-[#38BDF8] to-[#818CF8] shadow-2xl">
+                    <img
+                      src={personalInfo.avatarHero}
+                      alt={personalInfo.fullName}
+                      className="w-full h-full object-cover object-top rounded-full transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="mt-16 flex justify-center">
-          <a href="#about" onClick={(e) => { e.preventDefault(); document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }); }}
-             className={`animate-bounce ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
-            <ArrowDown size={24} />
-          </a>
+            {/* Quick Stats Pill Bar */}
+            <div className="w-full grid grid-cols-2 gap-3 mt-2">
+              <div className="p-3 rounded-2xl bg-[#111827]/80 border border-white/10 backdrop-blur-md text-center">
+                <p className="text-xl sm:text-2xl font-black text-[#F8FAFC]">₹2,00,000+</p>
+                <p className="text-[11px] font-medium text-[#38BDF8]">Peak Monthly Revenue</p>
+                <p className="text-[10px] text-[#94A3B8]">Velrix Core Venture</p>
+              </div>
+              <div className="p-3 rounded-2xl bg-[#111827]/80 border border-white/10 backdrop-blur-md text-center">
+                <p className="text-xl sm:text-2xl font-black text-[#F8FAFC]">Grade A+</p>
+                <p className="text-[11px] font-medium text-emerald-400">ISRO / IIRS Merit</p>
+                <p className="text-[10px] text-[#94A3B8]">Space Tech & Risk</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex justify-center pointer-events-auto">
+        <a
+          href="#about"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="animate-bounce text-[#94A3B8] hover:text-white transition-colors p-2"
+          aria-label="Scroll to about"
+        >
+          <ArrowDown size={20} />
+        </a>
       </div>
     </section>
   );

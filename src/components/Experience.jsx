@@ -43,31 +43,23 @@ export default function Experience() {
                   </div>
 
                   {/* Card */}
-                  <div className={`rounded-2xl overflow-hidden card-hover ${
-                    darkMode ? 'glass' : 'glass-light'
-                  }`}>
+                  <div className="rounded-2xl overflow-hidden card-hover bg-[#111827] border border-white/10">
                     {/* Header gradient */}
-                    <div className="h-1 bg-gradient-to-r from-violet-500 to-cyan-500" />
+                    <div className="h-1 bg-gradient-to-r from-[#6366F1] to-[#38BDF8]" />
                     
                     <div className="p-6 md:p-8">
                       <div className="flex items-start gap-4 mb-4">
                         {/* Company Logo */}
-                        <div className={`w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 ${
-                          darkMode ? 'bg-white/10' : 'bg-black/5'
-                        }`}>
+                        <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-white/5 border border-white/10">
                           <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover" />
                         </div>
                         
                         <div className="flex-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className={`text-lg md:text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                            <h3 className="text-lg md:text-xl font-bold text-[#F8FAFC]">
                               {exp.role}
                             </h3>
-                            <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
-                              darkMode 
-                                ? 'bg-violet-500/15 text-violet-400' 
-                                : 'bg-violet-500/10 text-violet-600'
-                            }`}>
+                            <span className="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#6366F1]/15 text-[#818CF8] border border-[#6366F1]/25">
                               {exp.type}
                             </span>
                           </div>
@@ -77,64 +69,52 @@ export default function Experience() {
                                 href={exp.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`text-base font-semibold inline-flex items-center gap-1.5 transition-colors ${
-                                  darkMode ? 'text-violet-400 hover:text-cyan-400' : 'text-violet-600 hover:text-cyan-600'
-                                }`}
+                                className="text-base font-semibold inline-flex items-center gap-1.5 transition-colors text-[#38BDF8] hover:text-[#818CF8]"
                               >
                                 <span>{exp.company}</span>
                                 <ExternalLink size={14} />
                               </a>
                             ) : (
-                              <p className={`text-base font-semibold ${
-                                darkMode ? 'text-violet-400' : 'text-violet-600'
-                              }`}>
+                              <p className="text-base font-semibold text-[#38BDF8]">
                                 {exp.company}
                               </p>
                             )}
                           </div>
-                          <div className={`flex flex-wrap items-center gap-4 mt-2 text-sm ${
-                            darkMode ? 'text-slate-400' : 'text-slate-600'
-                          }`}>
+                          <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-[#94A3B8]">
                             <span className="flex items-center gap-1.5">
-                              <Calendar size={14} />
+                              <Calendar size={13} className="text-[#6366F1]" />
                               {exp.period}
                             </span>
                             <span className="flex items-center gap-1.5">
-                              <MapPin size={14} />
+                              <MapPin size={13} className="text-[#6366F1]" />
                               {exp.location}
                             </span>
                           </div>
                         </div>
                       </div>
 
-                      <p className={`text-sm leading-relaxed mb-4 ${
-                        darkMode ? 'text-slate-300' : 'text-slate-700'
-                      }`}>
+                      <p className="text-sm leading-relaxed mb-4 text-[#94A3B8]">
                         {exp.description}
                       </p>
 
                       {/* Expand/Collapse */}
                       <button
                         onClick={() => setExpandedIndex(isExpanded ? -1 : i)}
-                        className={`flex items-center gap-1.5 text-sm font-medium mb-4 transition-colors duration-300 ${
-                          darkMode ? 'text-violet-400 hover:text-violet-300' : 'text-violet-600 hover:text-violet-700'
-                        }`}
+                        className="flex items-center gap-1.5 text-xs font-semibold mb-4 text-[#38BDF8] hover:text-white transition-colors"
                       >
-                        {isExpanded ? 'Show less' : 'Key achievements'}
-                        {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                        {isExpanded ? 'Hide Key Achievements' : 'View Key Deliverables & Outcomes'}
+                        {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                       </button>
 
                       {/* Highlights */}
                       <div className={`overflow-hidden transition-all duration-500 ${
                         isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                       }`}>
-                        <ul className="space-y-3 mb-6">
+                        <ul className="space-y-2.5 mb-6">
                           {exp.highlights.map((h, j) => (
-                            <li key={j} className="flex items-start gap-3">
-                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-violet-500 flex-shrink-0" />
-                              <span className={`text-sm leading-relaxed ${
-                                darkMode ? 'text-slate-400' : 'text-slate-600'
-                              }`}>
+                            <li key={j} className="flex items-start gap-2.5">
+                              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#38BDF8] flex-shrink-0" />
+                              <span className="text-xs sm:text-sm leading-relaxed text-[#F8FAFC]/90">
                                 {h}
                               </span>
                             </li>
@@ -143,15 +123,11 @@ export default function Experience() {
                       </div>
 
                       {/* Technologies */}
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5">
                         {exp.technologies.map((tech, j) => (
                           <span
                             key={j}
-                            className={`text-xs px-3 py-1 rounded-full font-medium ${
-                              darkMode 
-                                ? 'bg-violet-500/10 text-violet-300 border border-violet-500/20' 
-                                : 'bg-violet-500/10 text-violet-700 border border-violet-500/20'
-                            }`}
+                            className="text-xs px-2.5 py-1 rounded-lg font-medium bg-white/5 text-[#94A3B8] border border-white/5"
                           >
                             {tech}
                           </span>

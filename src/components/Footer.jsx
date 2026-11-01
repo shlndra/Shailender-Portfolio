@@ -12,9 +12,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className={`relative ${darkMode ? 'bg-[#020010]' : 'bg-white'}`}>
+    <footer className={`relative ${darkMode ? 'bg-[#080B12]' : 'bg-white'}`}>
       {/* Top gradient line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
+      <div className="h-px bg-gradient-to-r from-transparent via-[#6366F1]/50 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6 py-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

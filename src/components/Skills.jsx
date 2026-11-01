@@ -41,10 +41,8 @@ export default function Skills() {
                 onClick={() => setActiveTab(i)}
                 className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 magnetic-btn ${
                   activeTab === i
-                    ? 'bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/25'
-                    : darkMode
-                      ? 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
-                      : 'bg-black/5 text-slate-600 hover:bg-black/10 hover:text-slate-900'
+                    ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/25'
+                    : 'bg-[#111827] text-[#94A3B8] border border-white/5 hover:border-white/20 hover:text-white'
                 }`}
               >
                 <Icon size={16} />
@@ -55,7 +53,7 @@ export default function Skills() {
         </div>
 
         {/* Active Category Skills */}
-        <div ref={ref} className={`rounded-2xl p-8 mb-16 ${darkMode ? 'glass' : 'glass-light'}`}>
+        <div ref={ref} className="rounded-2xl p-8 mb-16 bg-[#111827] border border-white/10">
           <p className={`text-sm mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             {skillsData.categories[activeTab].description}
           </p>
