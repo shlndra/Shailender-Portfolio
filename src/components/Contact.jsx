@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTheme, Section } from '../App';
 import { personalInfo } from '../data/portfolioData';
 import { Mail, Phone, MapPin, Send, Sparkles, Copy, Check } from 'lucide-react';
-import { Github, Linkedin, Instagram } from './Icons';
+import { Github, Linkedin } from './Icons';
 import confetti from 'canvas-confetti';
 
 export default function Contact() {
@@ -53,8 +53,7 @@ export default function Contact() {
 
   const socialLinks = [
     { icon: Github, href: personalInfo.socials.github, label: 'GitHub', username: '@shlndra' },
-    { icon: Linkedin, href: personalInfo.socials.linkedin, label: 'LinkedIn', username: 'in/shlndra' },
-    { icon: Instagram, href: personalInfo.socials.instagram, label: 'Instagram', username: '@_shlndra' },
+    { icon: Linkedin, href: personalInfo.socials.linkedin, label: 'LinkedIn', username: 'in/shailender' },
   ];
 
   return (

@@ -14,8 +14,7 @@ export const personalInfo = {
   certificatesUrl: "https://drive.google.com/drive/folders/1X9_riu_DRJz2M8WQvcGbVJbUFPYy5GcS",
   socials: {
     github: "https://github.com/shlndra",
-    linkedin: "https://www.linkedin.com/in/shlndra/",
-    instagram: "https://www.instagram.com/_shlndra",
+    linkedin: "https://www.linkedin.com/in/shailender-18a18528a/",
     email: "mailto:reachoutshailender@gmail.com"
   },
   stats: [

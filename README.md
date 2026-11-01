@@ -38,7 +38,7 @@ This portfolio showcases the full spectrum of Shailender's work, experience, tec
   - Working email sender (auto-drafts to `reachoutshailender@gmail.com`)
   - Direct Phone / WhatsApp (+91-7678664379)
   - Copy-to-clipboard email with confetti animations
-  - Links to GitHub (`@shlndra`), LinkedIn, and Instagram.
+  - Links to GitHub (`@shlndra`) and LinkedIn.
 
 ---
 

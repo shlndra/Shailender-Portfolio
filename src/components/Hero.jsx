@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useTheme } from '../App';
 import { personalInfo } from '../data/portfolioData';
 import { Mail, Download, ArrowDown, Sparkles, MapPin } from 'lucide-react';
-import { Github, Linkedin, Instagram } from './Icons';
+import { Github, Linkedin } from './Icons';
 
 const roles = [
   "AI & ML Engineer",
@@ -84,7 +84,6 @@ export default function Hero() {
   const socialLinks = [
     { icon: Github, href: personalInfo.socials.github, label: 'GitHub' },
     { icon: Linkedin, href: personalInfo.socials.linkedin, label: 'LinkedIn' },
-    { icon: Instagram, href: personalInfo.socials.instagram, label: 'Instagram' },
     { icon: Mail, href: personalInfo.socials.email, label: 'Email' },
   ];
 

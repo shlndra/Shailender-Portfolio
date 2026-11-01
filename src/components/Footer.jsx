@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../App';
 import { personalInfo } from '../data/portfolioData';
 import { Heart, ArrowUp } from 'lucide-react';
-import { Github, Linkedin, Instagram } from './Icons';
+import { Github, Linkedin } from './Icons';
 
 export default function Footer() {
   const { darkMode } = useTheme();
@@ -33,7 +33,6 @@ export default function Footer() {
             {[
               { icon: Github, href: personalInfo.socials.github },
               { icon: Linkedin, href: personalInfo.socials.linkedin },
-              { icon: Instagram, href: personalInfo.socials.instagram },
             ].map(({ icon: Icon, href }, i) => (
               <a
                 key={i}
