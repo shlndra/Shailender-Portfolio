@@ -53,12 +53,14 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        darkMode 
+          ? 'bg-[#030014]/85 backdrop-blur-xl border-b border-white/5' 
+          : 'bg-white/85 backdrop-blur-xl border-b border-black/5'
+      } ${
         isScrolled 
-          ? darkMode 
-            ? 'py-3 bg-[#030014]/80 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-violet-500/5' 
-            : 'py-3 bg-white/80 backdrop-blur-xl border-b border-black/5 shadow-lg shadow-violet-500/10'
-          : 'py-5 bg-transparent'
+          ? 'py-3 shadow-lg shadow-violet-500/5' 
+          : 'py-4.5'
       }`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}

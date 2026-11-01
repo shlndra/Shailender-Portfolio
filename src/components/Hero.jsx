@@ -89,7 +89,7 @@ export default function Hero() {
   ];
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
       <FloatingParticles darkMode={darkMode} />
 
       {/* Hero gradient orb */}
