@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Section } from '../App';
+import { Section, useTheme } from '../App';
 import { personalInfo, projectsData, experienceData, skillsData } from '../data/portfolioData';
 import { Terminal as TerminalIcon, CornerDownLeft, Maximize2, Minimize2, Sparkles, Copy, Check } from 'lucide-react';
 
 const COMMANDS = ['help', 'about', 'skills', 'projects', 'experience', 'education', 'resume', 'contact', 'clear'];
 
 export default function DeveloperTerminal() {
+  const { darkMode } = useTheme();
   const [input, setInput] = useState('');
   const [history, setHistory] = useState([
     {
@@ -186,30 +187,34 @@ export default function DeveloperTerminal() {
             <TerminalIcon size={16} />
             Command Line Interface
           </p>
-          <h2 className="text-3xl md:text-5xl font-black mb-4 text-[#F8FAFC]">
+          <h2 className={`text-3xl md:text-5xl font-black mb-4 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
             Interactive <span className="gradient-text">Developer Terminal</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#6366F1] to-[#38BDF8] mx-auto rounded-full mb-4" />
-          <p className="max-w-xl mx-auto text-sm md:text-base text-[#94A3B8]">
+          <p className={`max-w-xl mx-auto text-sm md:text-base ${darkMode ? 'text-[#94A3B8]' : 'text-slate-600'}`}>
             Inspect my engineering skills, career experience, and academic record through an interactive terminal session.
           </p>
         </div>
 
         {/* Quick Command Chips */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
-          <span className="text-xs font-semibold text-[#94A3B8] mr-2">Quick Run:</span>
+          <span className={`text-xs font-semibold mr-2 ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Quick Run:</span>
           {COMMANDS.filter((c) => c !== 'clear').map((cmd) => (
             <button
               key={cmd}
               onClick={() => executeCommand(cmd)}
-              className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-[#111827] text-[#38BDF8] border border-white/10 hover:border-[#38BDF8]/50 hover:bg-[#38BDF8]/10 transition-all"
+              className={`px-3 py-1 rounded-lg text-xs font-mono font-medium border transition-all ${
+                darkMode
+                  ? 'bg-[#111827] text-[#38BDF8] border-white/10 hover:border-[#38BDF8]/50 hover:bg-[#38BDF8]/10'
+                  : 'bg-white text-indigo-600 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 shadow-sm'
+              }`}
             >
               {cmd}
             </button>
           ))}
           <button
             onClick={() => executeCommand('clear')}
-            className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-all"
+            className="px-3 py-1 rounded-lg text-xs font-mono font-medium bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20 transition-all"
           >
             clear
           </button>

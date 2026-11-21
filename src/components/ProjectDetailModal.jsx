@@ -20,32 +20,38 @@ export default function ProjectDetailModal({ project, onClose, darkMode = true }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md transition-all">
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#111827] border border-white/10 p-6 sm:p-8 shadow-2xl text-[#F8FAFC]"
+        className={`relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl border p-6 sm:p-8 shadow-2xl transition-colors ${
+          darkMode ? 'bg-[#111827] border-white/10 text-[#F8FAFC]' : 'bg-white border-slate-200 text-slate-900 shadow-2xl'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5 mb-6">
+        <div className={`flex items-start justify-between gap-4 border-b pb-5 mb-6 ${
+          darkMode ? 'border-white/10' : 'border-slate-200'
+        }`}>
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#6366F1]/20 text-[#818CF8] border border-[#6366F1]/30">
                 {project.category}
               </span>
-              <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 inline-block" />
+              <span className="text-xs text-emerald-500 font-semibold flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 inline-block" />
                 {project.stats}
               </span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-[#F8FAFC]">
+            <h3 className={`text-2xl sm:text-3xl font-black ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
               {project.title}
             </h3>
-            <p className="text-sm font-medium text-[#38BDF8] mt-1">
+            <p className={`text-sm font-medium mt-1 ${darkMode ? 'text-[#38BDF8]' : 'text-indigo-600'}`}>
               {project.tagline}
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-white transition-colors"
+            className={`p-2 rounded-full transition-colors ${
+              darkMode ? 'bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900'
+            }`}
             aria-label="Close modal"
           >
             <X size={20} />
@@ -70,7 +76,11 @@ export default function ProjectDetailModal({ project, onClose, darkMode = true }
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border border-white/10 bg-white/5 text-[#F8FAFC] hover:bg-white/10 hover:border-white/20 transition-all"
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all ${
+                darkMode
+                  ? 'border-white/10 bg-white/5 text-[#F8FAFC] hover:bg-white/10 hover:border-white/20'
+                  : 'border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100 hover:border-slate-400'
+              }`}
             >
               <Github size={16} />
               <span>Inspect Source Code</span>
@@ -81,35 +91,43 @@ export default function ProjectDetailModal({ project, onClose, darkMode = true }
         {/* Content Sections */}
         <div className="space-y-6 text-sm sm:text-base">
           {/* Problem Statement */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-white/2 border border-white/5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5 mb-2">
+          <div className={`p-4 sm:p-5 rounded-2xl border ${
+            darkMode ? 'bg-white/2 border-white/5' : 'bg-amber-50/50 border-amber-200/60'
+          }`}>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5 mb-2">
               <AlertCircle size={15} />
               Problem Statement
             </h4>
-            <p className="text-[#94A3B8] leading-relaxed">
+            <p className={`leading-relaxed ${darkMode ? 'text-[#94A3B8]' : 'text-slate-700'}`}>
               {project.problem || project.description}
             </p>
           </div>
 
           {/* Solution */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-white/2 border border-white/5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5 mb-2">
+          <div className={`p-4 sm:p-5 rounded-2xl border ${
+            darkMode ? 'bg-white/2 border-white/5' : 'bg-emerald-50/50 border-emerald-200/60'
+          }`}>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 mb-2">
               <CheckCircle2 size={15} />
               Proposed Solution
             </h4>
-            <p className="text-[#94A3B8] leading-relaxed">
+            <p className={`leading-relaxed ${darkMode ? 'text-[#94A3B8]' : 'text-slate-700'}`}>
               {project.solution || project.description}
             </p>
           </div>
 
           {/* Architecture */}
           {project.architecture && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/2 border border-white/5">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] flex items-center gap-1.5 mb-2">
+            <div className={`p-4 sm:p-5 rounded-2xl border ${
+              darkMode ? 'bg-white/2 border-white/5' : 'bg-sky-50/50 border-sky-200/60'
+            }`}>
+              <h4 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-2 ${
+                darkMode ? 'text-[#38BDF8]' : 'text-sky-600'
+              }`}>
                 <Server size={15} />
                 Technical Architecture
               </h4>
-              <p className="text-[#94A3B8] leading-relaxed">
+              <p className={`leading-relaxed ${darkMode ? 'text-[#94A3B8]' : 'text-slate-700'}`}>
                 {project.architecture}
               </p>
             </div>
@@ -117,12 +135,16 @@ export default function ProjectDetailModal({ project, onClose, darkMode = true }
 
           {/* Contribution */}
           {project.contribution && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-white/2 border border-white/5">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#818CF8] flex items-center gap-1.5 mb-2">
+            <div className={`p-4 sm:p-5 rounded-2xl border ${
+              darkMode ? 'bg-white/2 border-white/5' : 'bg-indigo-50/50 border-indigo-200/60'
+            }`}>
+              <h4 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-2 ${
+                darkMode ? 'text-[#818CF8]' : 'text-indigo-600'
+              }`}>
                 <Code2 size={15} />
                 My Contribution & Engineering Execution
               </h4>
-              <p className="text-[#94A3B8] leading-relaxed">
+              <p className={`leading-relaxed ${darkMode ? 'text-[#94A3B8]' : 'text-slate-700'}`}>
                 {project.contribution}
               </p>
             </div>
@@ -130,7 +152,9 @@ export default function ProjectDetailModal({ project, onClose, darkMode = true }
 
           {/* Technologies Used */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5 mb-3">
+            <h4 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-3 ${
+              darkMode ? 'text-[#94A3B8]' : 'text-slate-500'
+            }`}>
               <Layers size={14} />
               Technologies & Frameworks
             </h4>
@@ -138,7 +162,11 @@ export default function ProjectDetailModal({ project, onClose, darkMode = true }
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-[#F8FAFC] border border-white/10"
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border ${
+                    darkMode
+                      ? 'bg-white/5 text-[#F8FAFC] border-white/10'
+                      : 'bg-slate-100 text-slate-800 border-slate-200'
+                  }`}
                 >
                   {tech}
                 </span>

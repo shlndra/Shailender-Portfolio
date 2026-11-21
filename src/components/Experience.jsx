@@ -43,20 +43,26 @@ export default function Experience() {
                   </div>
 
                   {/* Card */}
-                  <div className="rounded-2xl overflow-hidden card-hover bg-[#111827] border border-white/10">
+                  <div className={`rounded-2xl overflow-hidden card-hover border transition-colors ${
+                    darkMode ? 'bg-[#111827] border-white/10' : 'bg-white border-slate-200 shadow-lg'
+                  }`}>
                     {/* Header gradient */}
                     <div className="h-1 bg-gradient-to-r from-[#6366F1] to-[#38BDF8]" />
                     
                     <div className="p-6 md:p-8">
                       <div className="flex items-start gap-4 mb-4">
                         {/* Company Logo */}
-                        <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-white/5 border border-white/10">
+                        <div className={`w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border ${
+                          darkMode ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'
+                        }`}>
                           <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover" />
                         </div>
                         
                         <div className="flex-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="text-lg md:text-xl font-bold text-[#F8FAFC]">
+                            <h3 className={`text-lg md:text-xl font-bold ${
+                              darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'
+                            }`}>
                               {exp.role}
                             </h3>
                             <span className="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#6366F1]/15 text-[#818CF8] border border-[#6366F1]/25">
@@ -69,18 +75,24 @@ export default function Experience() {
                                 href={exp.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-base font-semibold inline-flex items-center gap-1.5 transition-colors text-[#38BDF8] hover:text-[#818CF8]"
+                                className={`text-base font-semibold inline-flex items-center gap-1.5 transition-colors ${
+                                  darkMode ? 'text-[#38BDF8] hover:text-[#818CF8]' : 'text-indigo-600 hover:text-indigo-800'
+                                }`}
                               >
                                 <span>{exp.company}</span>
                                 <ExternalLink size={14} />
                               </a>
                             ) : (
-                              <p className="text-base font-semibold text-[#38BDF8]">
+                              <p className={`text-base font-semibold ${
+                                darkMode ? 'text-[#38BDF8]' : 'text-indigo-600'
+                              }`}>
                                 {exp.company}
                               </p>
                             )}
                           </div>
-                          <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-[#94A3B8]">
+                          <div className={`flex flex-wrap items-center gap-4 mt-2 text-xs ${
+                            darkMode ? 'text-[#94A3B8]' : 'text-slate-500'
+                          }`}>
                             <span className="flex items-center gap-1.5">
                               <Calendar size={13} className="text-[#6366F1]" />
                               {exp.period}
@@ -93,14 +105,18 @@ export default function Experience() {
                         </div>
                       </div>
 
-                      <p className="text-sm leading-relaxed mb-4 text-[#94A3B8]">
+                      <p className={`text-sm leading-relaxed mb-4 ${
+                        darkMode ? 'text-[#94A3B8]' : 'text-slate-600'
+                      }`}>
                         {exp.description}
                       </p>
 
                       {/* Expand/Collapse */}
                       <button
                         onClick={() => setExpandedIndex(isExpanded ? -1 : i)}
-                        className="flex items-center gap-1.5 text-xs font-semibold mb-4 text-[#38BDF8] hover:text-white transition-colors"
+                        className={`flex items-center gap-1.5 text-xs font-semibold mb-4 transition-colors ${
+                          darkMode ? 'text-[#38BDF8] hover:text-white' : 'text-indigo-600 hover:text-indigo-900'
+                        }`}
                       >
                         {isExpanded ? 'Hide Key Achievements' : 'View Key Deliverables & Outcomes'}
                         {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -114,7 +130,9 @@ export default function Experience() {
                           {exp.highlights.map((h, j) => (
                             <li key={j} className="flex items-start gap-2.5">
                               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#38BDF8] flex-shrink-0" />
-                              <span className="text-xs sm:text-sm leading-relaxed text-[#F8FAFC]/90">
+                              <span className={`text-xs sm:text-sm leading-relaxed ${
+                                darkMode ? 'text-[#F8FAFC]/90' : 'text-slate-700'
+                              }`}>
                                 {h}
                               </span>
                             </li>
@@ -127,7 +145,9 @@ export default function Experience() {
                         {exp.technologies.map((tech, j) => (
                           <span
                             key={j}
-                            className="text-xs px-2.5 py-1 rounded-lg font-medium bg-white/5 text-[#94A3B8] border border-white/5"
+                            className={`text-xs px-2.5 py-1 rounded-lg font-medium border ${
+                              darkMode ? 'bg-white/5 text-[#94A3B8] border-white/5' : 'bg-slate-100 text-slate-700 border-slate-200'
+                            }`}
                           >
                             {tech}
                           </span>

@@ -22,7 +22,9 @@ export default function Education() {
         </div>
 
         {educationData.map((edu, i) => (
-          <div key={i} className="relative rounded-2xl overflow-hidden bg-[#111827] border border-white/10">
+          <div key={i} className={`relative rounded-2xl overflow-hidden border transition-colors ${
+            darkMode ? 'bg-[#111827] border-white/10' : 'bg-white border-slate-200 shadow-xl'
+          }`}>
             {/* Top gradient */}
             <div className="h-1.5 bg-gradient-to-r from-[#6366F1] via-[#38BDF8] to-[#818CF8]" />
             

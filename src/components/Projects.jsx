@@ -33,11 +33,11 @@ export default function Projects() {
             <Sparkles size={16} />
             Verified Engineering Portfolio
           </p>
-          <h2 className="text-3xl md:text-5xl font-black mb-4 text-[#F8FAFC]">
+          <h2 className={`text-3xl md:text-5xl font-black mb-4 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
             Featured <span className="gradient-text">Projects</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#6366F1] to-[#38BDF8] mx-auto rounded-full mb-4" />
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#94A3B8]">
+          <p className={`max-w-2xl mx-auto text-sm md:text-base ${darkMode ? 'text-[#94A3B8]' : 'text-slate-600'}`}>
             Explore production systems, machine learning pipelines, and verified software applications built for real-world impact.
           </p>
         </div>
@@ -51,7 +51,9 @@ export default function Projects() {
               className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 magnetic-btn ${
                 filter === cat
                   ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/25'
-                  : 'bg-[#111827] text-[#94A3B8] border border-white/5 hover:border-white/20 hover:text-white'
+                  : darkMode
+                    ? 'bg-[#111827] text-[#94A3B8] border border-white/5 hover:border-white/20 hover:text-white'
+                    : 'bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 hover:text-slate-900'
               }`}
             >
               {cat}
@@ -66,7 +68,9 @@ export default function Projects() {
             return (
               <div
                 key={project.id}
-                className="group relative rounded-2xl overflow-hidden card-hover border border-white/10 bg-[#111827] flex flex-col justify-between"
+                className={`group relative rounded-2xl overflow-hidden card-hover border flex flex-col justify-between ${
+                  darkMode ? 'border-white/10 bg-[#111827]' : 'border-slate-200 bg-white shadow-lg'
+                }`}
               >
                 <div>
                   {/* Card Header & Badge */}
@@ -90,17 +94,19 @@ export default function Projects() {
                       <div>
                         <h3
                           onClick={() => setSelectedProject(project)}
-                          className="text-lg font-bold text-[#F8FAFC] group-hover:text-[#38BDF8] transition-colors cursor-pointer"
+                          className={`text-lg font-bold group-hover:text-[#38BDF8] transition-colors cursor-pointer ${
+                            darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'
+                          }`}
                         >
                           {project.title}
                         </h3>
-                        <p className="text-xs text-[#38BDF8] font-medium mt-0.5">
+                        <p className={`text-xs font-medium mt-0.5 ${darkMode ? 'text-[#38BDF8]' : 'text-indigo-600'}`}>
                           {project.tagline}
                         </p>
                       </div>
                     </div>
 
-                    <p className="text-sm leading-relaxed text-[#94A3B8] mb-4 line-clamp-3">
+                    <p className={`text-sm leading-relaxed mb-4 line-clamp-3 ${darkMode ? 'text-[#94A3B8]' : 'text-slate-600'}`}>
                       {project.description}
                     </p>
 
@@ -109,13 +115,15 @@ export default function Projects() {
                       {project.technologies.slice(0, 4).map((tech, j) => (
                         <span
                           key={j}
-                          className="text-[11px] px-2 py-0.5 rounded-md font-medium bg-white/5 text-[#94A3B8] border border-white/5"
+                          className={`text-[11px] px-2 py-0.5 rounded-md font-medium border ${
+                            darkMode ? 'bg-white/5 text-[#94A3B8] border-white/5' : 'bg-slate-100 text-slate-700 border-slate-200'
+                          }`}
                         >
                           {tech}
                         </span>
                       ))}
                       {project.technologies.length > 4 && (
-                        <span className="text-[11px] px-1.5 py-0.5 rounded-md text-[#94A3B8]">
+                        <span className={`text-[11px] px-1.5 py-0.5 rounded-md ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>
                           +{project.technologies.length - 4}
                         </span>
                       )}
@@ -124,10 +132,16 @@ export default function Projects() {
                 </div>
 
                 {/* Card Action Footer */}
-                <div className="px-5 pb-5 pt-2 flex items-center gap-2 border-t border-white/5">
+                <div className={`px-5 pb-5 pt-2 flex items-center gap-2 border-t ${
+                  darkMode ? 'border-white/5' : 'border-slate-100'
+                }`}>
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-[#F8FAFC] border border-white/10 transition-all"
+                    className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
+                      darkMode
+                        ? 'bg-white/5 hover:bg-white/10 text-[#F8FAFC] border-white/10'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200'
+                    }`}
                   >
                     <Info size={13} className="text-[#38BDF8]" />
                     <span>Deep Dive</span>
@@ -150,7 +164,11 @@ export default function Projects() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-white border border-white/10 transition-all"
+                      className={`p-2 rounded-xl border transition-all ${
+                        darkMode
+                          ? 'bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-white border-white/10'
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border-slate-200'
+                      }`}
                       title="Inspect GitHub Source"
                     >
                       <Github size={15} />

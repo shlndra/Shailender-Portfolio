@@ -42,7 +42,9 @@ export default function Skills() {
                 className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 magnetic-btn ${
                   activeTab === i
                     ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/25'
-                    : 'bg-[#111827] text-[#94A3B8] border border-white/5 hover:border-white/20 hover:text-white'
+                    : darkMode
+                      ? 'bg-[#111827] text-[#94A3B8] border border-white/5 hover:border-white/20 hover:text-white'
+                      : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-900 shadow-sm'
                 }`}
               >
                 <Icon size={16} />
@@ -53,7 +55,9 @@ export default function Skills() {
         </div>
 
         {/* Active Category Skills */}
-        <div ref={ref} className="rounded-2xl p-8 mb-16 bg-[#111827] border border-white/10">
+        <div ref={ref} className={`rounded-2xl p-8 mb-16 border transition-colors ${
+          darkMode ? 'bg-[#111827] border-white/10' : 'bg-white border-slate-200 shadow-xl'
+        }`}>
           <p className={`text-sm mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
             {skillsData.categories[activeTab].description}
           </p>

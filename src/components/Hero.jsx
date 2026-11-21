@@ -68,21 +68,27 @@ export default function Hero() {
           )}
 
           {/* Main Heading */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.12] mb-5 text-[#F8FAFC]">
+          <h1 className={`text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.12] mb-5 ${
+            darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'
+          }`}>
             Building <span className="gradient-text">Intelligent Systems.</span>
             <br />
             Creating Real-World Impact.
           </h1>
 
           {/* Subheading */}
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#38BDF8] mb-5">
+          <h2 className={`text-lg sm:text-xl md:text-2xl font-bold mb-5 ${
+            darkMode ? 'text-[#38BDF8]' : 'text-[#4F46E5]'
+          }`}>
             Software Engineer | AI/ML Developer | Full Stack Builder
           </h2>
 
           {/* Target Role Pills */}
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#94A3B8] mr-1 flex items-center gap-1">
-              <Cpu size={14} className="text-[#6366F1]" />
+            <span className={`text-xs font-semibold uppercase tracking-wider mr-1 flex items-center gap-1 ${
+              darkMode ? 'text-[#94A3B8]' : 'text-slate-500'
+            }`}>
+              <Cpu size={14} className={darkMode ? 'text-[#6366F1]' : 'text-[#4F46E5]'} />
               Target Roles:
             </span>
             {personalInfo.targetRoles.map((role, idx) => (
@@ -91,7 +97,9 @@ export default function Hero() {
                 className={`text-xs px-2.5 py-1 rounded-md font-medium transition-all duration-300 ${
                   activeRoleIndex === idx
                     ? 'bg-[#6366F1] text-white shadow-md shadow-[#6366F1]/30 scale-105'
-                    : 'bg-white/5 text-[#94A3B8] border border-white/5'
+                    : darkMode
+                      ? 'bg-white/5 text-[#94A3B8] border border-white/5'
+                      : 'bg-slate-100 text-slate-700 border border-slate-200'
                 }`}
               >
                 {role}
@@ -100,7 +108,9 @@ export default function Hero() {
           </div>
 
           {/* Introduction */}
-          <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-[#94A3B8] mb-8 mx-auto lg:mx-0">
+          <p className={`max-w-2xl text-base sm:text-lg leading-relaxed mb-8 mx-auto lg:mx-0 ${
+            darkMode ? 'text-[#94A3B8]' : 'text-slate-600'
+          }`}>
             {personalInfo.intro}
           </p>
 
@@ -123,7 +133,11 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               download="Shailender_Resume.pdf"
-              className="px-6 sm:px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base magnetic-btn border border-white/10 text-[#F8FAFC] hover:border-[#6366F1]/60 hover:bg-[#6366F1]/10 transition-all flex items-center gap-2"
+              className={`px-6 sm:px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base magnetic-btn border transition-all flex items-center gap-2 ${
+                darkMode
+                  ? 'border-white/10 text-[#F8FAFC] hover:border-[#6366F1]/60 hover:bg-[#6366F1]/10'
+                  : 'border-slate-300 text-slate-800 hover:border-[#4F46E5] hover:bg-indigo-50/50 bg-white shadow-sm'
+              }`}
             >
               <Download size={17} />
               <span>Resume</span>
@@ -135,17 +149,21 @@ export default function Hero() {
                 e.preventDefault();
                 document.querySelector('#terminal')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-5 py-3.5 rounded-full font-semibold text-sm magnetic-btn border border-white/10 text-[#94A3B8] hover:text-white hover:border-[#38BDF8]/50 hover:bg-[#38BDF8]/10 transition-all flex items-center gap-2"
+              className={`px-5 py-3.5 rounded-full font-semibold text-sm magnetic-btn border transition-all flex items-center gap-2 ${
+                darkMode
+                  ? 'border-white/10 text-[#94A3B8] hover:text-white hover:border-[#38BDF8]/50 hover:bg-[#38BDF8]/10'
+                  : 'border-slate-300 text-slate-700 hover:text-indigo-600 hover:border-indigo-400 hover:bg-slate-50 bg-white shadow-sm'
+              }`}
               title="Launch Developer Terminal"
             >
-              <TerminalIcon size={16} className="text-[#38BDF8]" />
+              <TerminalIcon size={16} className={darkMode ? 'text-[#38BDF8]' : 'text-indigo-600'} />
               <span>Interactive CLI</span>
             </a>
           </div>
 
           {/* Social Links & Location */}
           <div className="flex items-center justify-center lg:justify-start gap-4">
-            <span className="text-xs font-medium text-[#94A3B8] mr-1">Connect:</span>
+            <span className={`text-xs font-medium mr-1 ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Connect:</span>
             {socialLinks.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
@@ -153,12 +171,18 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="p-2.5 rounded-full bg-white/5 hover:bg-[#6366F1]/20 text-[#94A3B8] hover:text-[#F8FAFC] border border-white/5 transition-all magnetic-btn"
+                className={`p-2.5 rounded-full border transition-all magnetic-btn ${
+                  darkMode
+                    ? 'bg-white/5 hover:bg-[#6366F1]/20 text-[#94A3B8] hover:text-[#F8FAFC] border-white/5'
+                    : 'bg-slate-100 hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 border-slate-200'
+                }`}
               >
                 <Icon size={18} />
               </a>
             ))}
-            <span className="text-xs text-[#94A3B8] border-l border-white/10 pl-3">
+            <span className={`text-xs border-l pl-3 ${
+              darkMode ? 'text-[#94A3B8] border-white/10' : 'text-slate-500 border-slate-300'
+            }`}>
               {personalInfo.location}
             </span>
           </div>
@@ -189,15 +213,19 @@ export default function Hero() {
 
             {/* Quick Stats Pill Bar */}
             <div className="w-full grid grid-cols-2 gap-3 mt-2">
-              <div className="p-3 rounded-2xl bg-[#111827]/80 border border-white/10 backdrop-blur-md text-center">
-                <p className="text-xl sm:text-2xl font-black text-[#F8FAFC]">₹2,00,000+</p>
-                <p className="text-[11px] font-medium text-[#38BDF8]">Peak Monthly Revenue</p>
-                <p className="text-[10px] text-[#94A3B8]">Velrix Core Venture</p>
+              <div className={`p-3 rounded-2xl border backdrop-blur-md text-center ${
+                darkMode ? 'bg-[#111827]/80 border-white/10' : 'bg-white/90 border-slate-200 shadow-md'
+              }`}>
+                <p className={`text-xl sm:text-2xl font-black ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>₹2,00,000+</p>
+                <p className={`text-[11px] font-medium ${darkMode ? 'text-[#38BDF8]' : 'text-[#4F46E5]'}`}>Peak Monthly Revenue</p>
+                <p className={`text-[10px] ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Velrix Core Venture</p>
               </div>
-              <div className="p-3 rounded-2xl bg-[#111827]/80 border border-white/10 backdrop-blur-md text-center">
-                <p className="text-xl sm:text-2xl font-black text-[#F8FAFC]">Grade A+</p>
-                <p className="text-[11px] font-medium text-emerald-400">ISRO / IIRS Merit</p>
-                <p className="text-[10px] text-[#94A3B8]">Space Tech & Risk</p>
+              <div className={`p-3 rounded-2xl border backdrop-blur-md text-center ${
+                darkMode ? 'bg-[#111827]/80 border-white/10' : 'bg-white/90 border-slate-200 shadow-md'
+              }`}>
+                <p className={`text-xl sm:text-2xl font-black ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>Grade A+</p>
+                <p className="text-[11px] font-medium text-emerald-500">ISRO / IIRS Merit</p>
+                <p className={`text-[10px] ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Space Tech & Risk</p>
               </div>
             </div>
           </div>
@@ -212,7 +240,9 @@ export default function Hero() {
             e.preventDefault();
             document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="animate-bounce text-[#94A3B8] hover:text-white transition-colors p-2"
+          className={`animate-bounce p-2 transition-colors ${
+            darkMode ? 'text-[#94A3B8] hover:text-white' : 'text-slate-400 hover:text-slate-900'
+          }`}
           aria-label="Scroll to about"
         >
           <ArrowDown size={20} />

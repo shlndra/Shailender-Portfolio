@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTheme } from '../App';
 import { Bot, X, Send, Sparkles, RotateCcw, User, Check, CornerDownLeft, ShieldCheck } from 'lucide-react';
 import { personalInfo, projectsData, experienceData, educationData, certificatesData } from '../data/portfolioData';
 
@@ -81,6 +82,7 @@ You can reach out directly via:
 }
 
 export default function ShailenderAI() {
+  const { darkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -152,35 +154,43 @@ export default function ShailenderAI() {
 
       {/* Floating Chat Modal */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[92vw] sm:w-[410px] h-[580px] max-h-[85vh] rounded-3xl bg-[#111827] border border-white/10 shadow-2xl shadow-black/80 flex flex-col overflow-hidden text-[#F8FAFC]">
+        <div className={`fixed bottom-6 right-6 z-50 w-[92vw] sm:w-[410px] h-[580px] max-h-[85vh] rounded-3xl border shadow-2xl flex flex-col overflow-hidden transition-colors ${
+          darkMode ? 'bg-[#111827] border-white/10 text-[#F8FAFC] shadow-black/80' : 'bg-white border-slate-200 text-slate-900 shadow-xl'
+        }`}>
           {/* Header */}
-          <div className="p-4 bg-[#080B12] border-b border-white/10 flex items-center justify-between">
+          <div className={`p-4 border-b flex items-center justify-between ${
+            darkMode ? 'bg-[#080B12] border-white/10' : 'bg-slate-50 border-slate-200'
+          }`}>
             <div className="flex items-center gap-2.5">
               <div className="p-2 rounded-xl bg-gradient-to-tr from-[#6366F1] to-[#38BDF8] text-white shadow-md">
                 <Bot size={18} />
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h3 className="text-sm font-bold text-[#F8FAFC]">Shailender AI</h3>
-                  <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <h3 className={`text-sm font-bold ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>Shailender AI</h3>
+                  <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                     Live
                   </span>
                 </div>
-                <p className="text-[11px] text-[#94A3B8]">Grounded in verified portfolio data</p>
+                <p className={`text-[11px] ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Grounded in verified portfolio data</p>
               </div>
             </div>
 
             <div className="flex items-center gap-1">
               <button
                 onClick={handleReset}
-                className="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/5 transition-colors"
+                className={`p-1.5 rounded-lg transition-colors ${
+                  darkMode ? 'text-[#94A3B8] hover:text-white hover:bg-white/5' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200'
+                }`}
                 title="Reset conversation"
               >
                 <RotateCcw size={15} />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-[#94A3B8] hover:text-white hover:bg-white/5 transition-colors"
+                className={`p-1.5 rounded-lg transition-colors ${
+                  darkMode ? 'text-[#94A3B8] hover:text-white hover:bg-white/5' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200'
+                }`}
                 title="Close chat"
               >
                 <X size={18} />
@@ -204,7 +214,9 @@ export default function ShailenderAI() {
                   className={`p-3.5 rounded-2xl max-w-[85%] leading-relaxed whitespace-pre-wrap ${
                     msg.sender === 'user'
                       ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white rounded-br-none'
-                      : 'bg-[#080B12] text-[#F8FAFC] border border-white/5 rounded-bl-none'
+                      : darkMode
+                        ? 'bg-[#080B12] text-[#F8FAFC] border border-white/5 rounded-bl-none'
+                        : 'bg-slate-100 text-slate-800 border border-slate-200 rounded-bl-none shadow-xs'
                   }`}
                 >
                   {msg.text}
@@ -213,7 +225,7 @@ export default function ShailenderAI() {
             ))}
 
             {isTyping && (
-              <div className="flex items-center gap-2 text-xs text-[#94A3B8] pl-2">
+              <div className={`flex items-center gap-2 text-xs pl-2 ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>
                 <Bot size={14} className="text-[#38BDF8] animate-pulse" />
                 <span>Shailender AI is generating response...</span>
               </div>
@@ -222,12 +234,18 @@ export default function ShailenderAI() {
           </div>
 
           {/* Suggested Quick Questions */}
-          <div className="px-3 py-2 bg-[#080B12]/80 border-t border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar">
+          <div className={`px-3 py-2 border-t flex gap-1.5 overflow-x-auto no-scrollbar ${
+            darkMode ? 'bg-[#080B12]/80 border-white/5' : 'bg-slate-50 border-slate-200'
+          }`}>
             {SUGGESTED_QUESTIONS.map((q) => (
               <button
                 key={q}
                 onClick={() => handleSend(q)}
-                className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-white border border-white/5 whitespace-nowrap transition-all"
+                className={`px-2.5 py-1 rounded-full text-[11px] font-medium whitespace-nowrap transition-all border ${
+                  darkMode
+                    ? 'bg-white/5 hover:bg-white/10 text-[#94A3B8] hover:text-white border-white/5'
+                    : 'bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 border-slate-200 shadow-xs'
+                }`}
               >
                 {q}
               </button>
@@ -235,7 +253,9 @@ export default function ShailenderAI() {
           </div>
 
           {/* Input Bar */}
-          <div className="p-3 bg-[#080B12] border-t border-white/10 flex items-center gap-2">
+          <div className={`p-3 border-t flex items-center gap-2 ${
+            darkMode ? 'bg-[#080B12] border-white/10' : 'bg-slate-50 border-slate-200'
+          }`}>
             <input
               ref={inputRef}
               type="text"
@@ -243,7 +263,11 @@ export default function ShailenderAI() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Ask anything about Shailender..."
-              className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#111827] border border-white/10 text-xs text-[#F8FAFC] outline-none focus:border-[#38BDF8] placeholder:text-[#94A3B8]/50"
+              className={`flex-1 px-3.5 py-2.5 rounded-xl border text-xs outline-none focus:border-[#38BDF8] ${
+                darkMode
+                  ? 'bg-[#111827] border-white/10 text-[#F8FAFC] placeholder:text-[#94A3B8]/50'
+                  : 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400'
+              }`}
             />
             <button
               onClick={() => handleSend()}

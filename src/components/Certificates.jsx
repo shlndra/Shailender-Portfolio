@@ -46,7 +46,9 @@ export default function Certificates() {
           {certificatesData.map((cert) => (
             <div
               key={cert.id}
-              className="group rounded-3xl overflow-hidden card-hover border border-white/10 bg-[#111827] flex flex-col justify-between"
+              className={`group rounded-3xl overflow-hidden card-hover border flex flex-col justify-between transition-colors ${
+                darkMode ? 'border-white/10 bg-[#111827]' : 'border-slate-200 bg-white shadow-lg'
+              }`}
             >
               <div>
                 {/* Certificate Preview Image */}

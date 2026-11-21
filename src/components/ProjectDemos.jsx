@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Section } from '../App';
+import { Section, useTheme } from '../App';
 import { Home, MessageSquare, Users, Sparkles, Sliders, Play, RefreshCw, AlertCircle, CheckCircle, Info } from 'lucide-react';
 
 export default function ProjectDemos() {
+  const { darkMode } = useTheme();
   const [activeTab, setActiveTab] = useState('house'); // 'house' | 'sentiment' | 'turnover'
 
   // ==========================================
@@ -203,11 +204,11 @@ export default function ProjectDemos() {
             <Sparkles size={16} />
             Live Client-Side Machine Learning
           </p>
-          <h2 className="text-3xl md:text-5xl font-black mb-4 text-[#F8FAFC]">
+          <h2 className={`text-3xl md:text-5xl font-black mb-4 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
             Interactive <span className="gradient-text">Model Demonstrations</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#6366F1] to-[#38BDF8] mx-auto rounded-full mb-4" />
-          <p className="max-w-2xl mx-auto text-sm md:text-base text-[#94A3B8]">
+          <p className={`max-w-2xl mx-auto text-sm md:text-base ${darkMode ? 'text-[#94A3B8]' : 'text-slate-600'}`}>
             Interact with live mathematical simulations of models built during my academic and internship tenure. These run directly in the browser with verified statistical weights.
           </p>
         </div>
@@ -225,7 +226,9 @@ export default function ProjectDemos() {
               className={`flex items-center gap-3 px-5 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-300 magnetic-btn border ${
                 activeTab === id
                   ? 'bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/25 border-transparent'
-                  : 'bg-[#111827] text-[#94A3B8] border-white/5 hover:border-white/20 hover:text-white'
+                  : darkMode
+                    ? 'bg-[#111827] text-[#94A3B8] border-white/5 hover:border-white/20 hover:text-white'
+                    : 'bg-white text-slate-700 border-slate-200 hover:border-indigo-400 hover:bg-slate-50 shadow-sm'
               }`}
             >
               <Icon size={18} />
@@ -238,23 +241,25 @@ export default function ProjectDemos() {
         </div>
 
         {/* Workbench Card */}
-        <div className="rounded-3xl bg-[#111827] border border-white/10 p-6 sm:p-10 shadow-2xl">
+        <div className={`rounded-3xl border p-6 sm:p-10 shadow-2xl transition-colors ${
+          darkMode ? 'bg-[#111827] border-white/10' : 'bg-white border-slate-200 shadow-xl'
+        }`}>
           {/* TAB 1: HOUSE PRICE PREDICTION */}
           {activeTab === 'house' && (
             <div className="grid lg:grid-cols-12 gap-8 items-center">
               {/* Form Controls */}
               <div className="lg:col-span-7 space-y-5">
-                <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                  <h3 className="text-lg font-bold text-[#F8FAFC] flex items-center gap-2">
+                <div className={`flex items-center justify-between pb-3 border-b ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
+                  <h3 className={`text-lg font-bold flex items-center gap-2 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
                     <Home size={18} className="text-[#38BDF8]" />
                     Property Feature Parameters
                   </h3>
-                  <span className="text-xs text-[#94A3B8]">Scikit-Learn Hedonic Model</span>
+                  <span className={`text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Scikit-Learn Hedonic Model</span>
                 </div>
 
                 {/* Sq Ft Slider */}
                 <div>
-                  <div className="flex justify-between text-xs font-medium text-[#F8FAFC] mb-1.5">
+                  <div className={`flex justify-between text-xs font-medium mb-1.5 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>
                     <span>Interior Area (Sq Ft)</span>
                     <span className="text-[#38BDF8] font-bold">{houseParams.sqft} sq ft</span>
                   </div>
@@ -272,11 +277,13 @@ export default function ProjectDemos() {
                 {/* Bedrooms & Bathrooms */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-medium text-[#F8FAFC] block mb-1.5">Bedrooms</label>
+                    <label className={`text-xs font-medium block mb-1.5 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>Bedrooms</label>
                     <select
                       value={houseParams.bedrooms}
                       onChange={(e) => setHouseParams({ ...houseParams, bedrooms: Number(e.target.value) })}
-                      className="w-full p-2.5 rounded-xl bg-[#080B12] border border-white/10 text-xs font-medium text-[#F8FAFC] focus:outline-none focus:border-[#38BDF8]"
+                      className={`w-full p-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:border-[#38BDF8] ${
+                        darkMode ? 'bg-[#080B12] border-white/10 text-[#F8FAFC]' : 'bg-slate-50 border-slate-300 text-slate-900'
+                      }`}
                     >
                       {[1, 2, 3, 4, 5, 6].map((num) => (
                         <option key={num} value={num}>{num} Bedrooms</option>
@@ -285,11 +292,13 @@ export default function ProjectDemos() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-medium text-[#F8FAFC] block mb-1.5">Bathrooms</label>
+                    <label className={`text-xs font-medium block mb-1.5 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>Bathrooms</label>
                     <select
                       value={houseParams.bathrooms}
                       onChange={(e) => setHouseParams({ ...houseParams, bathrooms: Number(e.target.value) })}
-                      className="w-full p-2.5 rounded-xl bg-[#080B12] border border-white/10 text-xs font-medium text-[#F8FAFC] focus:outline-none focus:border-[#38BDF8]"
+                      className={`w-full p-2.5 rounded-xl border text-xs font-medium focus:outline-none focus:border-[#38BDF8] ${
+                        darkMode ? 'bg-[#080B12] border-white/10 text-[#F8FAFC]' : 'bg-slate-50 border-slate-300 text-slate-900'
+                      }`}
                     >
                       {[1, 1.5, 2, 2.5, 3, 4].map((num) => (
                         <option key={num} value={num}>{num} Baths</option>
@@ -300,7 +309,7 @@ export default function ProjectDemos() {
 
                 {/* Location Tier */}
                 <div>
-                  <label className="text-xs font-medium text-[#F8FAFC] block mb-1.5">Location Tier</label>
+                  <label className={`text-xs font-medium block mb-1.5 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>Location Tier</label>
                   <div className="grid grid-cols-3 gap-2">
                     {[
                       { id: 'tier1', label: 'Prime Tech Corridor (1.38x)' },
@@ -313,8 +322,10 @@ export default function ProjectDemos() {
                         onClick={() => setHouseParams({ ...houseParams, locationTier: tier.id })}
                         className={`p-2 rounded-xl text-xs font-medium text-center transition-all ${
                           houseParams.locationTier === tier.id
-                            ? 'bg-[#6366F1]/20 border border-[#6366F1] text-[#F8FAFC]'
-                            : 'bg-[#080B12] border border-white/5 text-[#94A3B8] hover:border-white/20'
+                            ? 'bg-[#6366F1]/20 border border-[#6366F1] font-bold text-[#6366F1] dark:text-[#F8FAFC]'
+                            : darkMode
+                              ? 'bg-[#080B12] border border-white/5 text-[#94A3B8] hover:border-white/20'
+                              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-slate-400'
                         }`}
                       >
                         {tier.label}
@@ -325,7 +336,7 @@ export default function ProjectDemos() {
 
                 {/* Property Age Slider */}
                 <div>
-                  <div className="flex justify-between text-xs font-medium text-[#F8FAFC] mb-1.5">
+                  <div className={`flex justify-between text-xs font-medium mb-1.5 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>
                     <span>Property Age</span>
                     <span className="text-[#38BDF8] font-bold">{houseParams.age} Years Old</span>
                   </div>
@@ -342,34 +353,40 @@ export default function ProjectDemos() {
               </div>
 
               {/* Output Display Card */}
-              <div className="lg:col-span-5 p-6 rounded-2xl bg-[#080B12] border border-white/10 text-center">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-3 inline-block">
+              <div className={`lg:col-span-5 p-6 rounded-2xl border text-center ${
+                darkMode ? 'bg-[#080B12] border-white/10' : 'bg-slate-50 border-slate-200 shadow-sm'
+              }`}>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-500 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-3 inline-block">
                   Regression Output
                 </span>
 
-                <p className="text-xs text-[#94A3B8] mt-2">Estimated Market Valuation</p>
-                <div className="text-3xl sm:text-4xl font-black text-[#F8FAFC] mt-1 mb-1">
+                <p className={`text-xs mt-2 ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Estimated Market Valuation</p>
+                <div className={`text-3xl sm:text-4xl font-black mt-1 mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
                   ${housePrediction.usd.toLocaleString()}
                 </div>
-                <p className="text-sm font-bold text-[#38BDF8]">
+                <p className={`text-sm font-bold ${darkMode ? 'text-[#38BDF8]' : 'text-indigo-600'}`}>
                   ≈ ₹{housePrediction.inrLakhs} Lakhs
                 </p>
 
-                <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-2 text-xs text-[#94A3B8]">
+                <div className={`mt-4 pt-4 border-t grid grid-cols-2 gap-2 text-xs ${
+                  darkMode ? 'border-white/10 text-[#94A3B8]' : 'border-slate-200 text-slate-600'
+                }`}>
                   <div>
                     <p className="text-[10px] uppercase">Price / Sq Ft</p>
-                    <p className="font-bold text-[#F8FAFC]">${housePrediction.sqftRate}</p>
+                    <p className={`font-bold ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>${housePrediction.sqftRate}</p>
                   </div>
                   <div>
                     <p className="text-[10px] uppercase">95% Conf. Range</p>
-                    <p className="font-bold text-[#F8FAFC]">
+                    <p className={`font-bold ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
                       ±6% (${Math.round(housePrediction.usd * 0.06).toLocaleString()})
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-4 p-3 rounded-xl bg-white/2 border border-white/5 text-[11px] text-[#94A3B8] text-left">
-                  <span className="font-bold text-[#F8FAFC]">Model Pipeline:</span> Multivariate linear regression with log-transformed square footage and categorical location tier multipliers.
+                <div className={`mt-4 p-3 rounded-xl border text-[11px] text-left ${
+                  darkMode ? 'bg-white/2 border-white/5 text-[#94A3B8]' : 'bg-white border-slate-200 text-slate-600'
+                }`}>
+                  <span className={`font-bold ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>Model Pipeline:</span> Multivariate linear regression with log-transformed square footage and categorical location tier multipliers.
                 </div>
               </div>
             </div>
@@ -378,17 +395,17 @@ export default function ProjectDemos() {
           {/* TAB 2: SENTIMENT ANALYSIS */}
           {activeTab === 'sentiment' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <h3 className="text-lg font-bold text-[#F8FAFC] flex items-center gap-2">
+              <div className={`flex items-center justify-between pb-3 border-b ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
+                <h3 className={`text-lg font-bold flex items-center gap-2 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
                   <MessageSquare size={18} className="text-[#38BDF8]" />
                   Natural Language Polarity Classification
                 </h3>
-                <span className="text-xs text-[#94A3B8]">NLP Lexicon & Tokenizer Engine</span>
+                <span className={`text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>NLP Lexicon & Tokenizer Engine</span>
               </div>
 
               {/* Text Input */}
               <div>
-                <label className="text-xs font-medium text-[#F8FAFC] block mb-2">
+                <label className={`text-xs font-medium block mb-2 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>
                   Test custom text, tweet, or user comment:
                 </label>
                 <textarea
@@ -396,13 +413,15 @@ export default function ProjectDemos() {
                   value={sentimentText}
                   onChange={(e) => setSentimentText(e.target.value)}
                   placeholder="Enter a comment or feedback here..."
-                  className="w-full p-4 rounded-2xl bg-[#080B12] border border-white/10 text-sm text-[#F8FAFC] focus:outline-none focus:border-[#38BDF8]"
+                  className={`w-full p-4 rounded-2xl border text-sm focus:outline-none focus:border-[#38BDF8] ${
+                    darkMode ? 'bg-[#080B12] border-white/10 text-[#F8FAFC]' : 'bg-slate-50 border-slate-300 text-slate-900'
+                  }`}
                 />
               </div>
 
               {/* Sample Quick Phrases */}
               <div className="flex flex-wrap items-center gap-2 text-xs">
-                <span className="text-[#94A3B8]">Quick Samples:</span>
+                <span className={darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}>Quick Samples:</span>
                 {[
                   "Super intuitive interface, zero latency, and solved our team's bottlenecks!",
                   "Terrible delay and frequent crashes during peak traffic hours.",
@@ -411,7 +430,11 @@ export default function ProjectDemos() {
                   <button
                     key={i}
                     onClick={() => setSentimentText(sample)}
-                    className="px-2.5 py-1 rounded-lg bg-white/5 text-[#94A3B8] hover:text-white hover:bg-white/10 border border-white/5 transition-all text-[11px]"
+                    className={`px-2.5 py-1 rounded-lg border transition-all text-[11px] ${
+                      darkMode
+                        ? 'bg-white/5 text-[#94A3B8] hover:text-white hover:bg-white/10 border-white/5'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200'
+                    }`}
                   >
                     Sample {i + 1}
                   </button>
@@ -419,38 +442,40 @@ export default function ProjectDemos() {
               </div>
 
               {/* Output Presentation */}
-              <div className="p-6 rounded-2xl bg-[#080B12] border border-white/10 grid sm:grid-cols-3 gap-6 items-center">
+              <div className={`p-6 rounded-2xl border grid sm:grid-cols-3 gap-6 items-center ${
+                darkMode ? 'bg-[#080B12] border-white/10' : 'bg-slate-50 border-slate-200 shadow-sm'
+              }`}>
                 <div className="text-center sm:text-left">
-                  <p className="text-xs text-[#94A3B8]">Classification Result</p>
+                  <p className={`text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Classification Result</p>
                   <p
                     className={`text-2xl font-black mt-1 ${
                       sentimentResult.label === 'Positive'
-                        ? 'text-emerald-400'
+                        ? 'text-emerald-500'
                         : sentimentResult.label === 'Negative'
-                        ? 'text-rose-400'
-                        : 'text-amber-400'
+                        ? 'text-rose-500'
+                        : 'text-amber-500'
                     }`}
                   >
                     {sentimentResult.label}
                   </p>
-                  <p className="text-xs text-[#94A3B8] mt-1">
-                    Confidence: <span className="font-bold text-[#F8FAFC]">{sentimentResult.confidence}%</span>
+                  <p className={`text-xs mt-1 ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>
+                    Confidence: <span className={`font-bold ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>{sentimentResult.confidence}%</span>
                   </p>
                 </div>
 
                 <div className="sm:col-span-2 space-y-2">
-                  <div className="flex justify-between text-xs text-[#94A3B8]">
+                  <div className={`flex justify-between text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-600'}`}>
                     <span>Positive Signals: {sentimentResult.posScore}</span>
                     <span>Negative Signals: {sentimentResult.negScore}</span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden flex">
+                  <div className={`w-full h-2 rounded-full overflow-hidden flex ${darkMode ? 'bg-white/10' : 'bg-slate-200'}`}>
                     <div
                       style={{ width: `${Math.min(100, (Number(sentimentResult.posScore) / 4) * 100)}%` }}
-                      className="h-full bg-emerald-400 transition-all"
+                      className="h-full bg-emerald-500 transition-all"
                     />
                     <div
                       style={{ width: `${Math.min(100, (Number(sentimentResult.negScore) / 4) * 100)}%` }}
-                      className="h-full bg-rose-400 transition-all"
+                      className="h-full bg-rose-500 transition-all"
                     />
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-2">
@@ -459,8 +484,8 @@ export default function ProjectDemos() {
                         key={idx}
                         className={`text-[10px] px-2 py-0.5 rounded-md font-mono ${
                           t.type.includes('positive')
-                            ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30'
-                            : 'bg-rose-500/10 text-rose-300 border border-rose-500/30'
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30'
+                            : 'bg-rose-500/10 text-rose-600 dark:text-rose-300 border border-rose-500/30'
                         }`}
                       >
                         {t.word} ({t.type})
@@ -477,17 +502,17 @@ export default function ProjectDemos() {
             <div className="grid lg:grid-cols-12 gap-8 items-center">
               {/* Form Controls */}
               <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                  <h3 className="text-lg font-bold text-[#F8FAFC] flex items-center gap-2">
+                <div className={`flex items-center justify-between pb-3 border-b ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
+                  <h3 className={`text-lg font-bold flex items-center gap-2 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
                     <Users size={18} className="text-[#38BDF8]" />
                     Employee Metrics & Workload Factors
                   </h3>
-                  <span className="text-xs text-[#94A3B8]">Decision Tree Classifier</span>
+                  <span className={`text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Decision Tree Classifier</span>
                 </div>
 
                 {/* Satisfaction */}
                 <div>
-                  <div className="flex justify-between text-xs font-medium text-[#F8FAFC] mb-1">
+                  <div className={`flex justify-between text-xs font-medium mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>
                     <span>Job Satisfaction Level (1 = Low, 10 = High)</span>
                     <span className="text-[#38BDF8] font-bold">{turnoverParams.satisfaction} / 10</span>
                   </div>
@@ -503,7 +528,7 @@ export default function ProjectDemos() {
 
                 {/* Evaluation Score */}
                 <div>
-                  <div className="flex justify-between text-xs font-medium text-[#F8FAFC] mb-1">
+                  <div className={`flex justify-between text-xs font-medium mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>
                     <span>Performance Evaluation Score</span>
                     <span className="text-[#38BDF8] font-bold">{turnoverParams.evaluation} / 10</span>
                   </div>
@@ -519,7 +544,7 @@ export default function ProjectDemos() {
 
                 {/* Monthly Hours */}
                 <div>
-                  <div className="flex justify-between text-xs font-medium text-[#F8FAFC] mb-1">
+                  <div className={`flex justify-between text-xs font-medium mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>
                     <span>Average Monthly Working Hours</span>
                     <span className="text-[#38BDF8] font-bold">{turnoverParams.monthlyHours} hrs</span>
                   </div>
@@ -537,11 +562,13 @@ export default function ProjectDemos() {
                 {/* Tenure & Promotion */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-medium text-[#F8FAFC] block mb-1">Years at Organization</label>
+                    <label className={`text-xs font-medium block mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>Years at Organization</label>
                     <select
                       value={turnoverParams.yearsAtCompany}
                       onChange={(e) => setTurnoverParams({ ...turnoverParams, yearsAtCompany: Number(e.target.value) })}
-                      className="w-full p-2.5 rounded-xl bg-[#080B12] border border-white/10 text-xs text-[#F8FAFC]"
+                      className={`w-full p-2.5 rounded-xl border text-xs ${
+                        darkMode ? 'bg-[#080B12] border-white/10 text-[#F8FAFC]' : 'bg-slate-50 border-slate-300 text-slate-900'
+                      }`}
                     >
                       {[1, 2, 3, 4, 5, 7, 10].map((y) => (
                         <option key={y} value={y}>{y} Years</option>
@@ -550,14 +577,16 @@ export default function ProjectDemos() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-medium text-[#F8FAFC] block mb-1">Promotion in Last 5 Years</label>
+                    <label className={`text-xs font-medium block mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-800'}`}>Promotion in Last 5 Years</label>
                     <button
                       type="button"
                       onClick={() => setTurnoverParams({ ...turnoverParams, promotionLast5Years: !turnoverParams.promotionLast5Years })}
                       className={`w-full p-2.5 rounded-xl text-xs font-semibold border transition-all ${
                         turnoverParams.promotionLast5Years
-                          ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
-                          : 'bg-[#080B12] text-[#94A3B8] border-white/10'
+                          ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
+                          : darkMode
+                            ? 'bg-[#080B12] text-[#94A3B8] border-white/10'
+                            : 'bg-slate-50 text-slate-700 border-slate-300'
                       }`}
                     >
                       {turnoverParams.promotionLast5Years ? '✓ Promoted' : '✗ No Promotion'}
@@ -567,24 +596,26 @@ export default function ProjectDemos() {
               </div>
 
               {/* Output Risk Gauge */}
-              <div className="lg:col-span-5 p-6 rounded-2xl bg-[#080B12] border border-white/10 text-center">
+              <div className={`lg:col-span-5 p-6 rounded-2xl border text-center ${
+                darkMode ? 'bg-[#080B12] border-white/10' : 'bg-slate-50 border-slate-200 shadow-sm'
+              }`}>
                 <span className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border mb-3 inline-block ${turnoverResult.badgeColor}`}>
                   {turnoverResult.tier}
                 </span>
 
-                <div className="text-4xl font-black text-[#F8FAFC] mt-3 mb-1">
+                <div className={`text-4xl font-black mt-3 mb-1 ${darkMode ? 'text-[#F8FAFC]' : 'text-slate-900'}`}>
                   {turnoverResult.percentage}%
                 </div>
-                <p className="text-xs text-[#94A3B8]">Attrition Probability Score</p>
+                <p className={`text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-500'}`}>Attrition Probability Score</p>
 
                 {/* Drivers list */}
-                <div className="mt-4 pt-4 border-t border-white/10 text-left space-y-1.5">
+                <div className={`mt-4 pt-4 border-t text-left space-y-1.5 ${darkMode ? 'border-white/10' : 'border-slate-200'}`}>
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#38BDF8]">
                     Identified Risk Factors:
                   </p>
                   {turnoverResult.riskDrivers.map((driver, idx) => (
-                    <div key={idx} className="flex items-start gap-1.5 text-xs text-[#94A3B8]">
-                      <span className="text-amber-400 mt-0.5">•</span>
+                    <div key={idx} className={`flex items-start gap-1.5 text-xs ${darkMode ? 'text-[#94A3B8]' : 'text-slate-600'}`}>
+                      <span className="text-amber-500 mt-0.5">•</span>
                       <span>{driver}</span>
                     </div>
                   ))}
