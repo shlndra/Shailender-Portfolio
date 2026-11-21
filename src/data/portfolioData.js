@@ -22,7 +22,7 @@ export const personalInfo = {
   isHireable: true,
   avatarHero: "/images/shailender-hero.jpg",
   avatarFormal: "/images/shailender-formal.jpg",
-  resumeUrl: "https://drive.google.com/file/d/11aA4kaJd3yR6ZYWIfvYb1mUcpgm4g6rk/view",
+  resumeUrl: "/Shailender_Resume.pdf",
   certificatesUrl: "https://drive.google.com/drive/folders/1X9_riu_DRJz2M8WQvcGbVJbUFPYy5GcS",
   socials: {
     github: "https://github.com/shlndra",

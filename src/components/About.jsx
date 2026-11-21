@@ -183,6 +183,7 @@ export default function About() {
                   href={personalInfo.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  download="Shailender_Resume.pdf"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/20 hover:opacity-95 transition-all magnetic-btn"
                 >
                   <FileText size={16} />

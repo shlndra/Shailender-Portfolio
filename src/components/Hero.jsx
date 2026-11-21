@@ -122,6 +122,7 @@ export default function Hero() {
               href={personalInfo.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
+              download="Shailender_Resume.pdf"
               className="px-6 sm:px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base magnetic-btn border border-white/10 text-[#F8FAFC] hover:border-[#6366F1]/60 hover:bg-[#6366F1]/10 transition-all flex items-center gap-2"
             >
               <Download size={17} />

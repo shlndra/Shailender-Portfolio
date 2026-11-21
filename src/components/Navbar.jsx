@@ -105,7 +105,8 @@ export default function Navbar() {
               href={personalInfo.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-md shadow-violet-500/20 hover:opacity-95 transition-all magnetic-btn"
+              download="Shailender_Resume.pdf"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-md shadow-[#6366F1]/20 hover:opacity-95 transition-all magnetic-btn"
             >
               <span>Resume</span>
               <ArrowUpRight size={13} />
@@ -176,7 +177,8 @@ export default function Navbar() {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-violet-600 to-cyan-600 text-white shadow-lg shadow-violet-500/20"
+                download="Shailender_Resume.pdf"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#6366F1] to-[#38BDF8] text-white shadow-lg shadow-[#6366F1]/20"
               >
                 <span>Download Resume</span>
                 <ArrowUpRight size={16} />
